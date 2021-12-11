@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col">
+    <form [formGroup]="signUpForm">
+      <div>
+        <mat-form-field appearance="fill">
+          <input type="email" matInput formControlName="email" />
+          <mat-error>Error</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your password</mat-label>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            formControlName="password"
+          />
+          <mat-icon matSuffix (click)="hide = !hide">{{
+            hide ? "visibility_off" : "visibility"
+          }}</mat-icon>
+          <mat-error>Hello World</mat-error>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary">SignUp</button>
+    </form>
+  </div>
+  <div class="col">
+    <div>
+      <img src="/assets/images/loginBg.png" alt="" />
+    </div>
+  </div>
+</div>
