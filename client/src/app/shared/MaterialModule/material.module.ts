@@ -6,6 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 
 let materialmodule = [
   MatInputModule,
@@ -15,6 +17,8 @@ let materialmodule = [
   MatGridListModule,
   MatCardModule,
   MatCheckboxModule,
+  MatProgressSpinnerModule,
+  MatDialogModule,
 ];
 @NgModule({
   imports: [materialmodule],

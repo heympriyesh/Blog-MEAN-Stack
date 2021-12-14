@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  height: auto;
+  background-color: #f9f4f0;
+}
+.editor_class {
+  height: 100%;
+}
+.input {
+  width: 100%;
+}
+.editor-buttons {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  margin-top: 20xp;
+  margin-top: 20px;
+  background-color: blue;
+  margin: 0 auto;
+}
+.iframe {
+  width: 100%;
+  height: auto;
+}

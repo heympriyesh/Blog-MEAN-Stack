@@ -1,12 +1,14 @@
-<nav class="nav">
+<nav class="nav landing-page-color">
   <div class="logo">
     <img src="/assets/images/landinglogo.webp" alt="" />
   </div>
   <ul class="nav-links">
     <li class="links"><a routerLink="">About</a></li>
-    <li class="links"><a routerLink="">Write</a></li>
+    <li class="links"><a routerLink="/write">Write</a></li>
     <li class="links"><a routerLink="">Sign In</a></li>
-    <li class="links"><a routerLink="">Get Started</a></li>
+    <li class="links try-for-free">
+      <a routerLink="/auth/login">Try for Free</a>
+    </li>
   </ul>
 </nav>
 <router-outlet></router-outlet>

@@ -1,14 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 8vh;
-  /* padding-top: 10px; */
-  /* text-align: center; */
+  height: 17vh;
+  padding-top: 10px;
 }
 .logo {
   width: 100px;
-  height: 40px;
+  height: 8vh;
 }
 img {
   width: 100%;
@@ -18,14 +21,20 @@ img {
   display: flex;
   justify-content: space-evenly;
   width: 40%;
-  margin: 0;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
 }
 .nav-links li {
   list-style: none;
 }
 .nav-links li a {
   text-decoration: none;
-  letter-spacing: 1px;
-  font-size: 20px;
+  font-size: 14px;
   color: black;
+  font-family: "Inter", sans-serif;
+}
+.try-for-free a {
+  border: 1px solid black;
+  border-radius: 6px;
+  padding: 6px;
 }
