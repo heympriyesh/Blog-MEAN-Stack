@@ -6,7 +6,7 @@ nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 17vh;
+  height: 10vh;
   padding-top: 10px;
   padding: 0;
 }

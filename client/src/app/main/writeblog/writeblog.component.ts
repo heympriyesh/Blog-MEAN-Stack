@@ -52,7 +52,11 @@ export class WriteblogComponent implements OnInit {
     let dialogRef = this.dialog.open(DialogComponent, {
       width: '100%',
       height: 'auto',
-      data: { title: this.title, content: this.content },
+      data: {
+        title: this.title,
+        content: this.content,
+        thumbnailImage: this.imageSrc,
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

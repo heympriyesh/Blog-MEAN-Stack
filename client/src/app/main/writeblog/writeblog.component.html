@@ -4,8 +4,9 @@
     <div class="thumbnailImage">
       <div class="preview-image">
         <img
-          [src]="imageSrc || /assets/images/uploageimage.webp"
+          [src]="imageSrc || '/assets/images/avatar.svg'"
           id="image"
+          #normal
         />
       </div>
       <input
@@ -15,15 +16,17 @@
         id=""
         (change)="uploadFile($event)"
         #file
+        #normal
       />
       <button
         mat-raised-button
         color="primary"
         (click)="file.click()"
+        (click)="normal.click()"
         class="uploadFile"
       >
         <mat-icon inline="true" class="color-white">file_upload</mat-icon> Choos
-        File
+        Thumbnail Image
       </button>
     </div>
     <div class="ck-editor-div">
@@ -35,8 +38,6 @@
         [fullPage]="false"
       ></ck-editor>
     </div>
-    <!-- <input type="file" accept="image/*" #file />
-    <button (click)="file.click()">Upload file</button> -->
   </form>
   <div class="editor-buttons">
     <button mat-raised-button color="primary" (click)="saveEditor()">

@@ -7,6 +7,8 @@ import {
   Renderer2,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SharedService } from 'src/app/shared/shared.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -19,49 +21,14 @@ export class HomeComponent implements OnInit {
     private elementRef: ElementRef,
     private rendere: Renderer2,
     private http: HttpClient,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private activatedRoute: ActivatedRoute,
+    private route: Router,
+    private sharedService: SharedService
   ) {}
-  color: string = '#f9f4f0';
+  color: string = '';
 
-  ngOnInit(): void {
-    let header = new HttpHeaders();
-    header = header.append('content-type', 'image/png');
-    // fetch(environment.baseUrl + '/')
-    //   .then((resp) => resp.arrayBuffer())
-    //   .then((resp) => {
-    //     // set the blog type to final pdf
-    //     const file = new Blob([resp], { type: 'image/png' });
-
-    //     // process to auto download it
-    //     const fileURL = URL.createObjectURL(file);
-    //     const link = document.createElement('a');
-    //     link.href = fileURL;
-    //     link.download = 'FileName' + new Date() + '.png';
-    //     // link.click();
-    //   });
-    // this.http.get(`${environment.baseUrl}/`).subscribe((baseImage: any) => {
-    //   console.log(baseImage);
-    //   let resp = baseImage.image.arrayBuffer();
-    //   console.log('resp', resp);
-    //   const file = new Blob([baseImage.data], { type: 'image/png' });
-    //   const fileURL = URL.createObjectURL(file);
-    //   const link = document.createElement('a');
-    //   link.href = fileURL;
-    //   link.download = 'image' + new Date() + '.png';
-    //   // link.click();
-    //   // console.log(
-    //   //   '🚀 ~ file: home.component.ts ~ line 47 ~ HomeComponent ~ .subscribe ~ fileURL',
-    //   //   fileURL
-    //   // );
-    //   let objectURL = 'data:image/png;base64,' + baseImage.image;
-
-    //   let thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-    //   console.log(
-    //     '🚀 ~ file: home.component.ts ~ line 28 ~ HomeComponent ~ this.http.get ~ thumbnail',
-    //     thumbnail
-    //   );
-    // });
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
     const hamburger = this.elementRef.nativeElement.querySelector('.hamburger');
