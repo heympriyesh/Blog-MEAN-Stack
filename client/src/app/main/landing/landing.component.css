@@ -1,14 +1,17 @@
 * {
   margin: 0;
   padding: 0;
-  height: 100%;
-  width: auto;
+
+  box-sizing: border-box;
 }
 img {
   width: 100%;
-  height: 100%;
+  height: 83vh;
   object-fit: contain;
   padding: 30px;
+}
+.landing-page-color {
+  height: 83vh;
 }
 .landing-image {
   padding-top: 30px;
@@ -51,3 +54,25 @@ img {
   letter-spacing: 1px;
   line-height: 21px;
 }
+
+/* For extremely small screen devices (595px and below) */
+@media only screen and (max-width: 595px) {
+}
+
+/* Small screen devices (600px and above) */
+@media only screen and (min-width: 600px) {
+}
+
+/* Medium screen devices (768px and above) */
+
+@media only screen and (max-width: 872px) {
+  .second-div {
+    display: none;
+  }
+}
+
+/* Big screen devices (889px and above) */
+@media only screen and (min-width: 889px) {
+}
+
+/* Extra big screen devices (1200px and above) */

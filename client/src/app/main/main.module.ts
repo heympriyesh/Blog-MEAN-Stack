@@ -8,6 +8,8 @@ import { LandingComponent } from './landing/landing.component';
 import { WriteblogComponent } from './writeblog/writeblog.component';
 import { MaterialModule } from '../shared/MaterialModule/material.module';
 import { DialogComponent } from './dialog';
+import { ReadblogComponent } from './readblog/readblog.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,7 @@ import { DialogComponent } from './dialog';
     LandingComponent,
     WriteblogComponent,
     DialogComponent,
+    ReadblogComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +26,7 @@ import { DialogComponent } from './dialog';
     ReactiveFormsModule,
     CKEditorModule,
     MaterialModule,
+    HttpClientModule,
   ],
   providers: [],
   exports: [],

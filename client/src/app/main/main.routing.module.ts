@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CKEditorModule } from 'ngx-ckeditor';
 import { HomeComponent } from './home/home.component';
 import { LandingComponent } from './landing/landing.component';
+import { ReadblogComponent } from './readblog/readblog.component';
 import { WriteblogComponent } from './writeblog/writeblog.component';
 
 const routes: Routes = [
@@ -19,6 +20,10 @@ const routes: Routes = [
       {
         path: 'write',
         component: WriteblogComponent,
+      },
+      {
+        path: 'read',
+        component: ReadblogComponent,
       },
     ],
   },

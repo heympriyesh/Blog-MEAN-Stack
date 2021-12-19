@@ -1,16 +1,42 @@
 <div class="editor_class">
   <form [formGroup]="editorForm">
-    <mat-form-field appearance="fill" class="input container mx-auto">
-      <mat-label>Title*</mat-label>
-      <input matInput type="text" formControlName="title" placeholder="Title" />
-    </mat-form-field>
-    <ck-editor
-      formControlName="content"
-      [(ngModel)]="editorValue"
-      skin="moono-lisa"
-      language="en"
-      [fullPage]="false"
-    ></ck-editor>
+    <input type="text" placeholder="Title" formControlName="title" />
+    <div class="thumbnailImage">
+      <div class="preview-image">
+        <img
+          [src]="imageSrc || /assets/images/uploageimage.webp"
+          id="image"
+        />
+      </div>
+      <input
+        type="file"
+        name=""
+        accept="image/*"
+        id=""
+        (change)="uploadFile($event)"
+        #file
+      />
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="file.click()"
+        class="uploadFile"
+      >
+        <mat-icon inline="true" class="color-white">file_upload</mat-icon> Choos
+        File
+      </button>
+    </div>
+    <div class="ck-editor-div">
+      <ck-editor
+        formControlName="content"
+        [(ngModel)]="editorValue"
+        skin="moono-lisa"
+        language="en"
+        [fullPage]="false"
+      ></ck-editor>
+    </div>
+    <!-- <input type="file" accept="image/*" #file />
+    <button (click)="file.click()">Upload file</button> -->
   </form>
   <div class="editor-buttons">
     <button mat-raised-button color="primary" (click)="saveEditor()">
@@ -23,4 +49,4 @@
     </button>
   </div>
 </div>
-<iframe srcdoc="{{ editorValue }}" frameborder="0" *ngIf="false"> </iframe>
+<!-- <iframe srcdoc="{{ editorValue }}" frameborder="0" *ngIf="true"> </iframe> -->

@@ -25,16 +25,23 @@ exports.login = asyncHandler(async (req, res, next) => {
 });
 
 exports.signup = asyncHandler(async (req, res, next) => {
-  const { name, email, password, role } = req.body;
-  console.log('name', name);
+  const { name, email, password, confirmPassword } = req.body;
+  if (password != confirmPassword) {
+    return next(
+      new ErrorResponse('password and confirmpassword must be same', 400)
+    );
+  }
   //Create user
   const user = await User.create({
     name,
     email,
     password,
-    role,
   });
   sendTokenResponse(user, 200, res);
+});
+
+exports.resetPassword = asyncHandler(async (req, res, next) => {
+  const { password, confirmPasssword } = req.body;
 });
 
 const sendTokenResponse = (user, statusCode, res) => {
@@ -53,6 +60,7 @@ const sendTokenResponse = (user, statusCode, res) => {
   } else {
     roleId = 2;
   }
+
   res.status(statusCode).json({
     success: true,
     token,

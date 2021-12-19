@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 // import { MatDialog } from '@angular/material/dialog';
@@ -15,11 +15,13 @@ export class WriteblogComponent implements OnInit {
   public htmlContent: any = '';
   public editorValue: any = '';
   editorForm: FormGroup;
+  public imageSrc: any;
   constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
     private _fb: FormBuilder,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private renderer: Renderer2
   ) {
     config.backdrop = 'static';
     config.keyboard = false;
@@ -57,5 +59,22 @@ export class WriteblogComponent implements OnInit {
       console.log('The dialog was closed');
       // this.animal = result;
     });
+  }
+
+  handleInputFile(files: FileList) {
+    console.log('file..');
+  }
+  uploadFile(event: Event) {
+    const element = event.currentTarget as HTMLInputElement;
+    let fileList: FileList | null = element.files;
+    if (fileList) {
+      const file = fileList[0];
+      const reader = new FileReader();
+      reader.onload = (e) => (this.imageSrc = reader.result);
+      reader.readAsDataURL(file);
+
+      // this.renderer.setStyle(Elemen)
+      console.log('FileUpload -> files', fileList);
+    }
   }
 }

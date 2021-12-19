@@ -3,7 +3,7 @@
 *,
 html,
 body {
-  height: auto;
+  /* height: auto; */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -16,4 +16,7 @@ body {
 
 .landing-page-color {
   background-color: #f9f4f0;
+}
+.name {
+  font-size: larger;
 }

@@ -9,6 +9,11 @@
 }
 .input {
   width: 100%;
+  display: flex;
+  justify-content: center;
+}
+input {
+  width: 100%;
 }
 .editor-buttons {
   display: flex;
@@ -22,4 +27,49 @@
 .iframe {
   width: 100%;
   height: auto;
+}
+.ck-editor-div {
+  /* display: flex;
+  justify-content: center; */
+}
+input[type="text"] {
+  width: 100%;
+  border: 2px solid #aaa;
+  border-radius: 4px;
+  margin: 8px 0;
+  outline: none;
+  padding: 8px;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: dodgerBlue;
+  box-shadow: 0 0 8px 0 dodgerBlue;
+}
+.thumbnailImage {
+  display: flex;
+  flex-direction: column;
+}
+.preview-image {
+  width: 80%;
+  height: 305px;
+  margin: 0 auto;
+}
+#image {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+input[type="file"] {
+  display: none;
+}
+.uploadFile {
+  display: flex;
+  justify-content: center;
+  width: 29%;
+  margin: 9px auto;
+}
+.color-white {
+  background-color: #3f51b5;
 }

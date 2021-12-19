@@ -6,6 +6,7 @@ import { AuthRoutingModule } from './auth-routing.modulet';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../shared/MaterialModule/material.module';
 import { LoginComponent } from './login/login.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [SignupComponent, ResetpasswordComponent, LoginComponent],
@@ -14,6 +15,7 @@ import { LoginComponent } from './login/login.component';
     AuthRoutingModule,
     ReactiveFormsModule,
     MaterialModule,
+    HttpClientModule,
   ],
 })
 export class AuthModule {}

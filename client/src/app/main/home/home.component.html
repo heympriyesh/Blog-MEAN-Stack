@@ -1,14 +1,22 @@
 <nav class="nav landing-page-color">
   <div class="logo">
-    <img src="/assets/images/landinglogo.webp" alt="" />
+    <a routerLink="/" matRipple> <span>Blog</span></a>
   </div>
   <ul class="nav-links">
-    <li class="links"><a routerLink="">About</a></li>
+    <li class="links">
+      <a routerLink="" matRipple>Read</a>
+    </li>
     <li class="links"><a routerLink="/write">Write</a></li>
-    <li class="links"><a routerLink="">Sign In</a></li>
+    <li class="links"><a routerLink="/auth/login">Sign In</a></li>
     <li class="links try-for-free">
       <a routerLink="/auth/login">Try for Free</a>
     </li>
   </ul>
+  <div class="hamburger">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </div>
 </nav>
+
 <router-outlet></router-outlet>

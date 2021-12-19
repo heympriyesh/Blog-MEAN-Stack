@@ -1,30 +1,89 @@
-<div class="row">
-  <div class="col">
-    <form [formGroup]="signUpForm">
-      <div>
-        <mat-form-field appearance="fill">
-          <input type="email" matInput formControlName="email" />
-          <mat-error>Error</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Enter your password</mat-label>
-          <input
-            matInput
-            [type]="hide ? 'password' : 'text'"
-            formControlName="password"
-          />
-          <mat-icon matSuffix (click)="hide = !hide">{{
-            hide ? "visibility_off" : "visibility"
-          }}</mat-icon>
-          <mat-error>Hello World</mat-error>
-        </mat-form-field>
+<div class="row first-div">
+  <div class="col-5" id="login">
+    <div id="login-form-wrapper">
+      <div class="login-form">
+        <div class="logo">
+          <img src="/assets/images/blog1.png" alt="" />
+        </div>
+        <form [formGroup]="signUpForm">
+          <div class="inner-form">
+            <mat-form-field appearance="fill" class="input">
+              <mat-label>Name*</mat-label>
+              <input type="text" matInput formControlName="name" />
+              <mat-error *ngIf="name?.errors?.required"
+                >Name is required</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="input">
+              <mat-label>Email address*</mat-label>
+              <input type="email" matInput formControlName="email" />
+              <mat-error *ngIf="email?.errors?.required"
+                >Email is required</mat-error
+              >
+              <mat-error *ngIf="email?.errors?.email"
+                >Please Enter Correct Email</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="input">
+              <mat-label>Password*</mat-label>
+              <input
+                matInput
+                [type]="hidePassword ? 'password' : 'text'"
+                formControlName="password"
+              />
+              <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
+                hidePassword ? "visibility_off" : "visibility"
+              }}</mat-icon>
+              <mat-error *ngIf="signUpForm.controls.password?.errors?.required"
+                >This is required Field</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="input">
+              <mat-label>Confirm Password*</mat-label>
+              <input
+                matInput
+                [type]="hideConfirmPassword ? 'password' : 'text'"
+                formControlName="confirmPassword"
+              />
+              <mat-icon
+                matSuffix
+                (click)="hideConfirmPassword = !hideConfirmPassword"
+                >{{
+                  hideConfirmPassword ? "visibility_off" : "visibility"
+                }}</mat-icon
+              >
+              <mat-error
+                *ngIf="signUpForm.controls.confirmPassword?.errors?.required"
+                >This is required Field</mat-error
+              >
+              <!-- <mat-error>Hello World</mat-error> -->
+            </mat-form-field>
+          </div>
+          <div class="rember-forgot">
+            <mat-checkbox class="example-margin" color="primary"
+              >Remember Me</mat-checkbox
+            >
+            <a routerLink="/auth/resetPassword">Forgot Password?</a>
+          </div>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="signup()"
+            class="login-button"
+          >
+            Signup
+          </button>
+        </form>
+        <div class="register">
+          <p class="mr-2">Already have a account?</p>
+          <a routerLink="/auth/login">Login</a>
+        </div>
       </div>
-      <button mat-raised-button color="primary">SignUp</button>
-    </form>
+    </div>
   </div>
-  <div class="col">
-    <div>
-      <img src="/assets/images/loginBg.png" alt="" />
+  <div class="col-7 padding0">
+    <div class="login-bg">
+      <img src="/assets/images/loginBg.png" alt="" class="login-image" />
     </div>
   </div>
 </div>
