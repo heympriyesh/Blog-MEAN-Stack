@@ -17,26 +17,26 @@ input {
 }
 .editor-buttons {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   width: 50%;
   margin-top: 20xp;
   margin-top: 20px;
-  background-color: blue;
+  /* background-color: blue; */
   margin: 0 auto;
 }
 .iframe {
   width: 100%;
   height: auto;
 }
-.ck-editor-div {
-  /* display: flex;
-  justify-content: center; */
-}
+
 input[type="text"] {
   width: 100%;
   border: 2px solid #aaa;
   border-radius: 4px;
-  margin: 8px 0;
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  width: 80%;
   outline: none;
   padding: 8px;
   box-sizing: border-box;
@@ -44,6 +44,21 @@ input[type="text"] {
 }
 
 input[type="text"]:focus {
+  border-color: dodgerBlue;
+  box-shadow: 0 0 8px 0 dodgerBlue;
+}
+#description {
+  border: 2px solid #aaa;
+  border-radius: 4px;
+  padding: 2px;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  outline: none;
+  transition: 0.3s;
+  margin: 0 auto;
+}
+#description:focus {
   border-color: dodgerBlue;
   box-shadow: 0 0 8px 0 dodgerBlue;
 }

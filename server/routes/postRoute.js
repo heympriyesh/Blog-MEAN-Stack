@@ -1,14 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const { post, getBlogData } = require('../controllers/postController');
+const { protect } = require('../middleware/authMiddleware');
+const {
+  post,
+  getAllBlogData,
+  deleteBlogData,
+  singleBlog,
+} = require('../controllers/postController');
+const path = require('path');
+const fs = require('fs');
+
 const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'uploads/');
   },
   filename: (req, file, cb) => {
-    // console.log('file in filename', file);
-    const ext = file.mimetype.split('/')[1];
+    const ext = file.originalname.split('.')[1];
     cb(null, `admin-${file.fieldname}-${Date.now()}.${ext}`);
   },
 });
@@ -16,7 +24,10 @@ const multerStorage = multer.diskStorage({
 const upload = multer({
   storage: multerStorage,
 });
-router.get('/', getBlogData);
-router.post('/', upload.single('image'), post);
+router.post('/', protect, upload.single('image'), post);
+router.get('/', getAllBlogData);
+router.get('/:id', singleBlog);
+router.delete('/:id', protect, deleteBlogData);
+// router.put('/:id'.)
 
 module.exports = router;

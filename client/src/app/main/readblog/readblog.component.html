@@ -1,122 +1,119 @@
 <div class="read-blog-page">
-  <div class="content" matRipple>
-    <div class="left-div">
-      <div class="writer-info-container">
-        <div class="info">
-          <div class="profile-image">
-            <img src="/assets/images/secure_login.svg" alt="" />
+  <div *ngIf="!contentLoaded">
+    <div *ngFor="let in of counter(5); let i = index">
+      <div class="content" matRipple>
+        <div class="left-div">
+          <div class="writer-info-container">
+            <div class="info">
+              <div class="profile-image">
+                <ngx-skeleton-loader
+                  *ngIf="!contentLoaded"
+                  appearance="circle"
+                  [theme]="{ width: '20px', height: '20px' }"
+                ></ngx-skeleton-loader>
+                <img
+                  src="/assets/images/secure_login.svg"
+                  alt=""
+                  *ngIf="contentLoaded"
+                />
+              </div>
+              <ngx-skeleton-loader
+                *ngIf="!contentLoaded"
+                class="writer-name"
+              ></ngx-skeleton-loader>
+              <h4 class="writer-name" *ngIf="contentLoaded">Priyesh Pandey</h4>
+            </div>
           </div>
-          <h4 class="writer-name">Priyesh Pandey</h4>
+          <div class="blog-title">
+            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
+            <h1 *ngIf="contentLoaded">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </h1>
+          </div>
+          <div class="blog-content">
+            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
+            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
+
+            <p *ngIf="contentLoaded">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse
+              rerum possimus pariatur, illum animi illo mollitia
+            </p>
+          </div>
+        </div>
+        <div class="right-div">
+          <ngx-skeleton-loader
+            *ngIf="!contentLoaded"
+            appearance="circle"
+            [theme]="{
+              width: '88%',
+              height: '100%',
+              'border-radius': '29px',
+              display: 'flex',
+              'justify-content': 'centre',
+              margin: '0 auto'
+            }"
+          ></ngx-skeleton-loader>
+          <img src="/assets/images/loginBg.png" alt="" *ngIf="contentLoaded" />
         </div>
       </div>
-      <div class="blog-title">
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
-      </div>
-      <div class="blog-content">
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse rerum
-          possimus pariatur, illum animi illo mollitia
-        </p>
-      </div>
-    </div>
-    <div class="right-div">
-      <img src="/assets/images/loginBg.png" alt="" />
     </div>
   </div>
-  <div class="content">
-    <div class="left-div">
-      <div class="writer-info-container">
-        <div class="info">
-          <div class="profile-image">
-            <img src="/assets/images/secure_login.svg" alt="" />
+  <div *ngFor="let data of blogDetails">
+    <a [routerLink]="['/read', data._id]" id="link">
+      <div class="content" matRipple>
+        <div class="left-div">
+          <div class="writer-info-container">
+            <div class="info">
+              <div class="profile-image">
+                <ngx-skeleton-loader
+                  *ngIf="!contentLoaded"
+                  appearance="circle"
+                  [theme]="{ width: '20px', height: '20px' }"
+                ></ngx-skeleton-loader>
+                <img
+                  src="/assets/images/secure_login.svg"
+                  alt=""
+                  *ngIf="contentLoaded"
+                />
+              </div>
+              <ngx-skeleton-loader
+                *ngIf="!contentLoaded"
+                class="writer-name"
+              ></ngx-skeleton-loader>
+              <h4 class="writer-name" *ngIf="contentLoaded">
+                {{ data?.user?.name }}
+              </h4>
+            </div>
           </div>
-          <h4 class="writer-name">Priyesh Pandey</h4>
+          <div class="blog-title">
+            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
+            <h1 *ngIf="contentLoaded">
+              {{ data.title }}
+            </h1>
+          </div>
+          <div class="blog-content">
+            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
+            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
+            <div
+              *ngIf="contentLoaded"
+              [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.description)"
+            ></div>
+          </div>
+        </div>
+        <div class="right-div">
+          <ngx-skeleton-loader
+            *ngIf="!contentLoaded"
+            appearance="circle"
+            [theme]="{
+              width: '40%',
+              height: '100%',
+              'border-radius': '29px',
+              'margin-left': '12%'
+            }"
+          ></ngx-skeleton-loader>
+          <img src="{{ data.image }}" alt="" *ngIf="contentLoaded" />
         </div>
       </div>
-      <div class="blog-title">
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
-      </div>
-      <div class="blog-content">
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse rerum
-          possimus pariatur, illum animi illo mollitia
-        </p>
-      </div>
-    </div>
-    <div class="right-div">
-      <img src="/assets/images/loginBg.png" alt="" />
-    </div>
-  </div>
-  <div class="content">
-    <div class="left-div">
-      <div class="writer-info-container">
-        <div class="info">
-          <div class="profile-image">
-            <img src="/assets/images/secure_login.svg" alt="" />
-          </div>
-          <h4 class="writer-name">Priyesh Pandey</h4>
-        </div>
-      </div>
-      <div class="blog-title">
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
-      </div>
-      <div class="blog-content">
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse rerum
-          possimus pariatur, illum animi illo mollitia
-        </p>
-      </div>
-    </div>
-    <div class="right-div">
-      <img src="/assets/images/loginBg.png" alt="" />
-    </div>
-  </div>
-  <div class="content">
-    <div class="left-div">
-      <div class="writer-info-container">
-        <div class="info">
-          <div class="profile-image">
-            <img src="/assets/images/secure_login.svg" alt="" />
-          </div>
-          <h4 class="writer-name">Priyesh Pandey</h4>
-        </div>
-      </div>
-      <div class="blog-title">
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
-      </div>
-      <div class="blog-content">
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse rerum
-          possimus pariatur, illum animi illo mollitia
-        </p>
-      </div>
-    </div>
-    <div class="right-div">
-      <img src="/assets/images/loginBg.png" alt="" />
-    </div>
-  </div>
-  <div class="content">
-    <div class="left-div">
-      <div class="writer-info-container">
-        <div class="info">
-          <div class="profile-image">
-            <img src="/assets/images/secure_login.svg" alt="" />
-          </div>
-          <h4 class="writer-name">Priyesh Pandey</h4>
-        </div>
-      </div>
-      <div class="blog-title">
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
-      </div>
-      <div class="blog-content">
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse rerum
-          possimus pariatur, illum animi illo mollitia
-        </p>
-      </div>
-    </div>
-    <div class="right-div">
-      <img src="/assets/images/loginBg.png" alt="" />
-    </div>
+    </a>
   </div>
 </div>

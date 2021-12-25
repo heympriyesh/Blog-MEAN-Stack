@@ -8,8 +8,10 @@ import {
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DataService } from 'src/app/shared/data.service';
 import { SharedService } from 'src/app/shared/shared.service';
 import { environment } from 'src/environments/environment';
+import { SweetAlertOptions } from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +19,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
+  public loggedIn: boolean = false;
+  public drop: boolean = false;
   constructor(
     private elementRef: ElementRef,
     private rendere: Renderer2,
@@ -24,11 +28,26 @@ export class HomeComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private activatedRoute: ActivatedRoute,
     private route: Router,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private dataService: DataService
   ) {}
+  alertOpt: SweetAlertOptions = {};
   color: string = '';
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.alertOpt = {
+      title: 'Success!',
+      text: 'Saved successfuly',
+      toast: false,
+      allowOutsideClick: false,
+    };
+    this.dataService.checkLogin();
+
+    this.dataService.isLoggedIn.subscribe((val) => {
+      console.log('val...', val);
+      this.loggedIn = val;
+    });
+  }
 
   ngAfterViewInit() {
     const hamburger = this.elementRef.nativeElement.querySelector('.hamburger');
@@ -41,5 +60,13 @@ export class HomeComponent implements OnInit {
       hamburger.classList.toggle('active');
       navMenu.classList.toggle('active');
     });
+  }
+  profileDrop() {
+    this.drop = !this.drop;
+    console.log('clicked..', this.drop);
+  }
+
+  logout() {
+    this.dataService.logOut();
   }
 }

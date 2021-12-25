@@ -1,0 +1,30 @@
+.thumbnailImage {
+  height: 50%;
+  width: 50%;
+  margin: 0 auto;
+}
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+#title {
+  word-break: break-word;
+  width: 50%;
+  margin: 0 auto;
+  font-weight: 900;
+  font-size: 23px;
+  line-height: 35px;
+  margin-bottom: 20px;
+}
+.mainContent {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  word-break: break-word;
+  width: 60%;
+  text-align: center;
+  align-items: center;
+  line-height: 2;
+  margin-bottom: 0;
+}

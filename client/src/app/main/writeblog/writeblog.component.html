@@ -1,7 +1,14 @@
 <div class="editor_class">
   <form [formGroup]="editorForm">
     <input type="text" placeholder="Title" formControlName="title" />
-    <div class="thumbnailImage">
+    <textarea
+      formControlName="description"
+      id="description"
+      cols="30"
+      rows="5"
+      placeholder="Write Short description in 50 words.."
+    ></textarea>
+    <div class="thumbnailImage mt-2">
       <div class="preview-image">
         <img
           [src]="imageSrc || '/assets/images/avatar.svg'"
@@ -29,7 +36,7 @@
         Thumbnail Image
       </button>
     </div>
-    <div class="ck-editor-div">
+    <div class="ck-editor-div mb-4">
       <ck-editor
         formControlName="content"
         [(ngModel)]="editorValue"
@@ -41,7 +48,7 @@
   </form>
   <div class="editor-buttons">
     <button mat-raised-button color="primary" (click)="saveEditor()">
-      Save
+      Save As Draft
     </button>
     <button mat-raised-button color="warn">Reset</button>
     <button mat-raised-button color="accent">Publish</button>
@@ -50,4 +57,3 @@
     </button>
   </div>
 </div>
-<!-- <iframe srcdoc="{{ editorValue }}" frameborder="0" *ngIf="true"> </iframe> -->

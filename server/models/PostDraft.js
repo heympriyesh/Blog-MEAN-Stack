@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const postSchema = new mongoose.Schema({
+const draftSchema = new mongoose.Schema({
   title: {
     type: String,
     required: [true, 'Please add a Title'],
@@ -25,14 +25,11 @@ const postSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now(),
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: true,
   },
 });
 
-module.exports = new mongoose.model('Post', postSchema);
+module.exports = new mongoose.model('Draft', draftSchema);

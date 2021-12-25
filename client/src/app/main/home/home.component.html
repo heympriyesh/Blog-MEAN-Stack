@@ -7,11 +7,36 @@
       <a routerLink="/read" matRipple>Read</a>
     </li>
     <li class="links"><a routerLink="/write">Write</a></li>
-    <li class="links"><a routerLink="/auth/login">Sign In</a></li>
-    <li class="links try-for-free">
+    <li class="links" *ngIf="!loggedIn">
+      <a routerLink="/auth/login">Sign In</a>
+    </li>
+    <li class="links try-for-free" *ngIf="!loggedIn">
       <a routerLink="/auth/login" matRippe>Try for Free</a>
     </li>
+    <li class="links profile-drop" *ngIf="loggedIn">
+      <div class="profile-image" (click)="profileDrop()">
+        <img src="/assets/images/avatar.svg" alt="" id="profile-image" />
+        <mat-icon> arrow_drop_down </mat-icon>
+      </div>
+      <div
+        class="profile-dropdown"
+        [ngStyle]="{ display: drop ? 'flex' : 'none' }"
+      >
+        <button
+          mat-raised-button
+          color="primary"
+          class="mb-2"
+          [swal]="alertOpt"
+        >
+          <mat-icon class="mr-2">person_pin </mat-icon>Profile
+        </button>
+        <button mat-raised-button color="primary" (click)="logout()">
+          <mat-icon class="mr-2">power_settings_new</mat-icon>Logout
+        </button>
+      </div>
+    </li>
   </ul>
+
   <div class="hamburger">
     <span class="bar"></span>
     <span class="bar"></span>

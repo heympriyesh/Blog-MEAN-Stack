@@ -8,6 +8,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/MaterialModule/material.module';
 import { CKEditorModule } from 'ngx-ckeditor';
+import { HttpClientModule } from '@angular/common/http';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { DeactivateServiceGuard } from './shared/deactivate.guard';
+import { AuthGuard } from './shared/auth.guard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,8 +25,11 @@ import { CKEditorModule } from 'ngx-ckeditor';
     BrowserAnimationsModule,
     MaterialModule,
     CKEditorModule,
+    HttpClientModule,
+    SweetAlert2Module.forRoot(),
+    NgxSkeletonLoaderModule,
   ],
-  providers: [],
+  providers: [DeactivateServiceGuard, AuthGuard],
   bootstrap: [AppComponent],
   exports: [],
 })

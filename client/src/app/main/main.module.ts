@@ -10,6 +10,9 @@ import { MaterialModule } from '../shared/MaterialModule/material.module';
 import { DialogComponent } from './dialog';
 import { ReadblogComponent } from './readblog/readblog.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { ReadSingleBlogComponent } from './read-single-blog/read-single-blog.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     WriteblogComponent,
     DialogComponent,
     ReadblogComponent,
+    ReadSingleBlogComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
     CKEditorModule,
     MaterialModule,
     HttpClientModule,
+    SweetAlert2Module,
+    NgxSkeletonLoaderModule,
   ],
   providers: [],
   exports: [],

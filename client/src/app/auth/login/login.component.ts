@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DataService } from 'src/app/shared/data.service';
 import { environment } from 'src/environments/environment';
+import Swal, { SweetAlertOptions } from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +15,13 @@ export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   public hide: boolean = true;
   baseUrl = environment.baseUrl;
+  alertOpt: SweetAlertOptions = {};
+
   constructor(
     private _fb: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private dataService: DataService
   ) {
     this.loginForm = this._fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -33,7 +38,33 @@ export class LoginComponent implements OnInit {
         .post(`${this.baseUrl}/auth/login`, this.loginForm.value)
         .subscribe(
           (res: any) => {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+              },
+            });
+            Toast.fire({
+              icon: 'success',
+              title: 'Signed in successfully',
+            });
+            // Swal.fire({
+            //   // position: 'top-end',
+            //   icon: 'success',
+            //   title: 'Logged In SuccessFully',
+            //   showConfirmButton: false,
+            //   timer: 2000,
+            // });
+
             console.log('res...', res);
+            if (res.token) {
+              this.dataService.setLogIn();
+            }
             localStorage.setItem('token', res.token);
             this.router.navigate(['/creators']);
           },
