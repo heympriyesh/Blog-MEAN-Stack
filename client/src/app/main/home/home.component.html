@@ -22,14 +22,14 @@
         class="profile-dropdown"
         [ngStyle]="{ display: drop ? 'flex' : 'none' }"
       >
-        <button
+        <a
           mat-raised-button
           color="primary"
-          class="mb-2"
-          [swal]="alertOpt"
+          class="mb-2 text-light m-0 p-0"
+          routerLink="/dashboard"
         >
           <mat-icon class="mr-2">person_pin </mat-icon>Profile
-        </button>
+        </a>
         <button mat-raised-button color="primary" (click)="logout()">
           <mat-icon class="mr-2">power_settings_new</mat-icon>Logout
         </button>

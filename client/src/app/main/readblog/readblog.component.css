@@ -9,7 +9,7 @@
 .content {
   width: 65%;
   margin: 0 auto;
-  height: 195px;
+  height: auto;
   display: flex;
   justify-content: space-between;
   padding: 9px;
@@ -51,6 +51,7 @@
 }
 .right-div {
   width: 40%;
+  height: 180px;
   object-fit: contain;
 }
 img {
@@ -62,4 +63,23 @@ img {
 #link {
   text-decoration: none;
   color: black;
+}
+.date-time {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 8px;
+  color: rgba(117, 117, 117, 1);
+}
+.blog-content {
+  color: rgba(117, 117, 117, 1);
+  line-height: 20px;
+  font-size: 16px;
+  max-height: 40px;
+  overflow: hidden;
+}
+.blog-title {
+  font-size: 22px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 700;
 }

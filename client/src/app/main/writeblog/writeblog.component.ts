@@ -32,14 +32,9 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
     config.backdrop = 'static';
     config.keyboard = false;
     this.editorForm = this._fb.group({
-      title: ['jhjjjhjj', [Validators.required]],
+      title: ['', [Validators.required]],
       description: ['', Validators.required],
-      content: [
-        `<h2>🦊 Create a MetaMask Wallet</h2>
-      <p>The first step is to download a MetaMask if you don&rsquo;t have it installed already. It&rsquo;s a secure Ethereum wallet and it&rsquo;s completely free. The easiest way is to install it for Chrome and then click on Create a wallet (second screenshot). Keep in mind that the password you choose is not as important as the secret recovery phase. The best practice is to write it down on a piece of paper and store it in a secure place.</p>
-      `,
-        [Validators.required],
-      ],
+      content: ['', [Validators.required]],
     });
   }
 

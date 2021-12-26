@@ -36,7 +36,7 @@ module.exports.post = async (req, res, next) => {
 };
 
 module.exports.getAllBlogData = async (req, res, next) => {
-  console.log('The value of req,', req.user);
+  // console.log('The value of req,', req.user);
   try {
     let find = await Post.find({}).sort({ _id: -1 }).populate({
       path: 'user',

@@ -99,6 +99,9 @@
               [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.description)"
             ></div>
           </div>
+          <div class="date-time">
+            <span>{{ data?.createdAt | date }}</span>
+          </div>
         </div>
         <div class="right-div">
           <ngx-skeleton-loader

@@ -13,10 +13,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ReadSingleBlogComponent } from './read-single-blog/read-single-blog.component';
+import { SharedNavBarModule } from './SharedNavBar/shard-navbar.module';
 
+// HomeComponent,
 @NgModule({
   declarations: [
-    HomeComponent,
     LandingComponent,
     WriteblogComponent,
     DialogComponent,
@@ -33,6 +34,7 @@ import { ReadSingleBlogComponent } from './read-single-blog/read-single-blog.com
     HttpClientModule,
     SweetAlert2Module,
     NgxSkeletonLoaderModule,
+    SharedNavBarModule,
   ],
   providers: [],
   exports: [],
