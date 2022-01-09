@@ -66,7 +66,7 @@ export class EditblogComponent implements OnInit {
     formData.append('description', this.description);
     if (this.editorForm.valid) {
       this.dataService.saveBlogData(formData).subscribe((res) => {
-        console.log('res value saved', res);
+        // console.log('res value saved', res);
       });
     }
     console.log(this.editorForm.value);
