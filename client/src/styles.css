@@ -21,3 +21,6 @@ body {
 .name {
   font-size: larger;
 }
+.bgClass {
+  background: hsla(0, 0%, 100%, 0.9) !important;
+}

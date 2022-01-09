@@ -6,25 +6,33 @@ const fs = require('fs');
 module.exports.post = async (req, res, next) => {
   const { content, title, description } = req.body;
   const id = req.user.id;
+  let creator;
   try {
-    var obj = {
+    const post = new Post({
       title: title,
       content: content,
       description: description,
       image: req.file.filename,
       mimetype: req.file.mimetype,
       user: id,
-    };
-    Post.create(obj, (err, item) => {
-      if (err) {
-        console.log('post time error', err);
-      } else {
-        res.status(200).json({
-          success: true,
-          message: 'Blog Published Successfully...',
-        });
-      }
     });
+    post
+      .save()
+      .then((result) => {
+        return User.findById(req.user.id);
+      })
+      .then((user) => {
+        creator = user;
+        user.posts.push(post);
+        return user.save();
+      })
+      .then((result) => {
+        res.status(201).json({
+          message: 'Blog Published Successfully',
+          post: post,
+          creator: { _id: creator._id, name: creator.name },
+        });
+      });
   } catch (err) {
     res.status(400).json({
       success: false,
@@ -36,11 +44,10 @@ module.exports.post = async (req, res, next) => {
 };
 
 module.exports.getAllBlogData = async (req, res, next) => {
-  // console.log('The value of req,', req.user);
   try {
     let find = await Post.find({}).sort({ _id: -1 }).populate({
       path: 'user',
-      select: 'name',
+      select: 'name ',
     });
 
     res.status(200).json({

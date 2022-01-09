@@ -28,6 +28,5 @@ router.post('/', protect, upload.single('image'), post);
 router.get('/', getAllBlogData);
 router.get('/:id', singleBlog);
 router.delete('/:id', protect, deleteBlogData);
-// router.put('/:id'.)
 
 module.exports = router;

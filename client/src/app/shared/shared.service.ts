@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SharedService {
   public navColor = new BehaviorSubject<string>('');
+  public showNavar = new BehaviorSubject<boolean>(true);
   constructor() {}
 
   public setNavColor() {
@@ -14,5 +15,13 @@ export class SharedService {
 
   public resetNavColor() {
     this.navColor.next('');
+  }
+
+  public setRouterOutlet(data: string) {
+    if (data.startsWith('/dashboard')) {
+      this.showNavar.next(false);
+    } else {
+      this.showNavar.next(true);
+    }
   }
 }

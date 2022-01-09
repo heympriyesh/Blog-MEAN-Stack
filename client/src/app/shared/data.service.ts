@@ -91,12 +91,18 @@ export class DataService {
       this.isLoggedIn.next(false);
     }
   }
-
+  /**
+   * Get All Blogs
+   */
   getBlogData() {
     return this.http
       .get(`${this.baseUrl}/blog`, this.setHeader())
       .pipe(catchError(this.handleError));
   }
+
+  /*
+  Get Single Blog
+   */
 
   getSingleBlog(id: any) {
     return this.http.get(`${this.baseUrl}/blog/${id}`);
@@ -104,5 +110,9 @@ export class DataService {
 
   saveBlogData(data: any) {
     return this.http.post(`${this.baseUrl}/blog`, data, this.setHeader());
+  }
+
+  myBlog() {
+    return this.http.get(`${this.baseUrl}/auth/myBlogs`, this.setHeader());
   }
 }

@@ -9,6 +9,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRippleModule } from '@angular/material/core';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 let materialmodule = [
   MatInputModule,
@@ -21,6 +22,7 @@ let materialmodule = [
   MatProgressSpinnerModule,
   MatDialogModule,
   MatRippleModule,
+  MatSidenavModule,
 ];
 @NgModule({
   imports: [materialmodule],

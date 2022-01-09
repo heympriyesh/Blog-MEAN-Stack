@@ -1,6 +1,8 @@
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
 const User = require('../models/User');
+const Post = require('../models/Post');
+const mongoose = require('mongoose');
 
 exports.login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
@@ -43,6 +45,36 @@ exports.signup = asyncHandler(async (req, res, next) => {
 exports.resetPassword = asyncHandler(async (req, res, next) => {
   const { password, confirmPasssword } = req.body;
 });
+
+exports.getMe = async (req, res, next) => {
+  const id = req.user.id;
+  const user = await User.findById(id);
+  if (!user) {
+    res.status(401).json({
+      success: false,
+      message: 'User not Found',
+    });
+  }
+  res.status(200).json({
+    success: true,
+    data: user,
+  });
+};
+
+exports.myBlog = async (req, res, nex) => {
+  const id = req.user.id;
+  try {
+    let blog = await User.findById(id).populate({
+      path: 'posts',
+    });
+    res.status(200).json({
+      success: true,
+      blog,
+    });
+  } catch (err) {
+    res.send(err);
+  }
+};
 
 const sendTokenResponse = (user, statusCode, res) => {
   const token = user.getSignedJwtToken();
