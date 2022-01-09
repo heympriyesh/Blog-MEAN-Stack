@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { DataService } from 'src/app/shared/data.service';
 import { SharedService } from 'src/app/shared/shared.service';
 import { environment } from 'src/environments/environment';
@@ -21,6 +22,7 @@ import { SweetAlertOptions } from 'sweetalert2';
 export class HomeComponent implements OnInit {
   public loggedIn: boolean = false;
   public drop: boolean = false;
+  public routerOutlet: boolean = true;
   constructor(
     private elementRef: ElementRef,
     private rendere: Renderer2,
@@ -35,6 +37,10 @@ export class HomeComponent implements OnInit {
   color: string = '';
 
   ngOnInit(): void {
+    this.sharedService.setRouterOutlet(this.route.url);
+    this.sharedService.showNavar.subscribe((val) => {
+      this.routerOutlet = val;
+    });
     this.alertOpt = {
       title: 'Success!',
       text: 'Saved successfuly',
@@ -44,7 +50,6 @@ export class HomeComponent implements OnInit {
     this.dataService.checkLogin();
 
     this.dataService.isLoggedIn.subscribe((val) => {
-      console.log('val...', val);
       this.loggedIn = val;
     });
   }
@@ -61,9 +66,9 @@ export class HomeComponent implements OnInit {
       navMenu.classList.toggle('active');
     });
   }
+
   profileDrop() {
     this.drop = !this.drop;
-    console.log('clicked..', this.drop);
   }
 
   logout() {

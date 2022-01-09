@@ -3,3 +3,38 @@
   padding: 0;
   height: auto;
 }
+
+#passwordChange {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2px;
+}
+#passwordChangeAction {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.cancel {
+  height: 52px !important;
+  padding: 8px 30px;
+  outline: blue;
+  margin: 10px 20px 10px 0;
+  border-radius: 2px;
+  background-color: transparent;
+  border: 1px solid #4461d7;
+  color: #4461d7 !important;
+}
+.save {
+  height: 52px !important;
+  padding: 8px 30px;
+  border-radius: 2px;
+  background-color: #4461d7;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  margin-right: 0px !important;
+  padding: 5px 30px;
+  width: 107px;
+  height: 52px !important;
+}

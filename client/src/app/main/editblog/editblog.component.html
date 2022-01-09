@@ -1,0 +1,59 @@
+<div class="editor_class">
+  <form [formGroup]="editorForm">
+    <input type="text" placeholder="Title" formControlName="title" />
+    <textarea
+      formControlName="description"
+      id="description"
+      cols="30"
+      rows="5"
+      placeholder="Write Short description in 50 words.."
+    ></textarea>
+    <div class="thumbnailImage mt-2">
+      <div class="preview-image">
+        <img
+          [src]="imageSrc || '/assets/images/avatar.svg'"
+          id="image"
+          #normal
+        />
+      </div>
+      <input
+        type="file"
+        name=""
+        accept="image/*"
+        id=""
+        (change)="uploadFile($event)"
+        #file
+        #normal
+      />
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="file.click()"
+        (click)="normal.click()"
+        class="uploadFile"
+      >
+        <mat-icon inline="true" class="color-white">file_upload</mat-icon> Choos
+        Thumbnail Image
+      </button>
+    </div>
+    <div class="ck-editor-div mb-4">
+      <ck-editor
+        formControlName="content"
+        [(ngModel)]="editorValue"
+        skin="moono-lisa"
+        language="en"
+        [fullPage]="false"
+      ></ck-editor>
+    </div>
+  </form>
+  <!-- <div class="editor-buttons">
+    <button mat-raised-button color="primary" (click)="saveEditor()">
+      Save As Draft
+    </button>
+    <button mat-raised-button color="warn">Reset</button>
+    <button mat-raised-button color="accent">Publish</button>
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      Preview
+    </button>
+  </div> -->
+</div>

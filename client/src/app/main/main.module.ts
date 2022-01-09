@@ -14,6 +14,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ReadSingleBlogComponent } from './read-single-blog/read-single-blog.component';
 import { SharedNavBarModule } from './SharedNavBar/shard-navbar.module';
+import { EditblogComponent } from './editblog/editblog.component';
+// import { SharedModule } from '../shared/shared.module';
 
 // HomeComponent,
 @NgModule({
@@ -23,6 +25,7 @@ import { SharedNavBarModule } from './SharedNavBar/shard-navbar.module';
     DialogComponent,
     ReadblogComponent,
     ReadSingleBlogComponent,
+    EditblogComponent,
   ],
   imports: [
     CommonModule,

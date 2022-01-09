@@ -32,6 +32,7 @@ export class ReadblogComponent implements OnInit {
         this.contentLoaded = true;
       });
   }
+
   counter(i: number) {
     return new Array(i);
   }

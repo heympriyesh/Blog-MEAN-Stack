@@ -26,7 +26,8 @@
           mat-raised-button
           color="primary"
           class="mb-2 text-light m-0 p-0"
-          routerLink="/dashboard"
+          routerLink="/dashboard/profile"
+          (click)="profileDrop()"
         >
           <mat-icon class="mr-2">person_pin </mat-icon>Profile
         </a>
@@ -44,4 +45,4 @@
   </div>
 </nav>
 
-<router-outlet></router-outlet>
+<router-outlet *ngIf="routerOutlet"></router-outlet>

@@ -1,17 +1,42 @@
 <app-home></app-home>
-<div class="">
+<div class="mt-4">
   <div id="profile-container">
     <div class="row">
-      <div class="col-4">
+      <div class="col-2">
         <div class="left-menu-div">
-          <ul>
-            <li>Profile</li>
-            <li>Blog</li>
-            <li>Drafts</li>
-          </ul>
+          <!-- <mat-sidenav-container> -->
+
+          <!-- </mat-sidenav-container> -->
+          <mat-drawer-container class="example-container" fullscreen>
+            <mat-drawer class="example-sidenav w-100" mode="over" opened>
+              <div class="menu-items">
+                <a
+                  routerLink="/dashboard/profile"
+                  mat-raised-button
+                  class="mat-button mat-button-base"
+                >
+                  Profile
+                </a>
+                <a
+                  routerLink="/dashboard/myblog"
+                  mat-raised-button
+                  class="mat-button mat-button-base"
+                >
+                  My Blogs
+                </a>
+                <a
+                  routerLink="/dashboard/draft"
+                  mat-raised-button
+                  class="mat-button mat-button-base"
+                >
+                  Drafts
+                </a>
+              </div>
+            </mat-drawer>
+          </mat-drawer-container>
         </div>
       </div>
-      <div class="col-8">
+      <div class="col-10">
         <div class="right-menu">
           <router-outlet></router-outlet>
         </div>

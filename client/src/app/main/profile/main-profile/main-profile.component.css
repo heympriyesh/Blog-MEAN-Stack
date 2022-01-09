@@ -1,5 +1,35 @@
 .left-menu-div {
-  width: 20;
+  /* width: 20; */
 }
 #profile-container {
+}
+.left-menu-div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+a {
+  text-decoration: none;
+}
+.menu-items {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.rotuer-link-active {
+  background: rgba(0, 0, 0, 0.2);
+}
+#toggle-sidenav {
+  position: absolute;
+  right: 0;
+}
+img {
+  width: 100%;
+  height: 100%;
+}
+
+mat-drawer {
+  width: 100%;
 }

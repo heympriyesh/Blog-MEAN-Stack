@@ -1,0 +1,94 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.read-blog-page {
+  margin-top: 30px;
+}
+.content {
+  width: 65%;
+  margin: 0 auto;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 9px;
+  margin-bottom: 30px;
+  flex: 1 1 auto;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 9px;
+  position: relative;
+}
+.content:hover {
+  box-shadow: 0px 20px 40px rgba(250, 13, 13, 0.4);
+}
+.writer-info-container {
+  padding-bottom: 8px;
+}
+.info {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+.profile-image {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+.writer-name {
+  margin: 0;
+  margin-left: 5px;
+}
+.left-div {
+  width: 60%;
+  height: 100%;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+.left-div h1 {
+  word-break: break-word;
+}
+.left-div p1 {
+  word-break: break-word;
+}
+.right-div {
+  width: 40%;
+  height: 180px;
+  object-fit: contain;
+  margin-top: 17px;
+}
+img {
+  /* object-fit: contain; */
+  height: 100%;
+  width: 100%;
+  border-radius: 7px;
+}
+#link {
+  text-decoration: none;
+  color: black;
+}
+.date-time {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 8px;
+  color: rgba(117, 117, 117, 1);
+}
+.blog-content {
+  color: rgba(117, 117, 117, 1);
+  line-height: 20px;
+  font-size: 16px;
+  max-height: 40px;
+  overflow: hidden;
+}
+.blog-title {
+  font-size: 22px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 700;
+}
+.more {
+  position: absolute;
+  right: 5px;
+  top: 2px;
+  cursor: pointer;
+}

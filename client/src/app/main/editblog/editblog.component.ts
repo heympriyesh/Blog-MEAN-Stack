@@ -1,23 +1,22 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-// import { MatDialog } from '@angular/material/dialog';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
 import { DataService } from 'src/app/shared/data.service';
-import { IDeactivateGuard } from 'src/app/shared/deactivate.guard';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { DialogComponent } from '../dialog';
 
 @Component({
-  selector: 'app-writeblog',
-  templateUrl: './writeblog.component.html',
-  styleUrls: ['./writeblog.component.css'],
-  providers: [NgbModalConfig, NgbModal],
+  selector: 'app-editblog',
+  templateUrl: './editblog.component.html',
+  styleUrls: [
+    './editblog.component.css',
+    '../writeblog/writeblog.component.css',
+  ],
 })
-export class WriteblogComponent implements OnInit, IDeactivateGuard {
+export class EditblogComponent implements OnInit {
   public htmlContent: any = '';
   public editorValue: any = '';
   editorForm: FormGroup;
@@ -27,16 +26,14 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   public id: string | null | undefined;
   contentLoaded = false;
   constructor(
-    private activatedRouter: ActivatedRoute,
     config: NgbModalConfig,
     private modalService: NgbModal,
     private _fb: FormBuilder,
     public dialog: MatDialog,
     private renderer: Renderer2,
-    private dataService: DataService
+    private dataService: DataService,
+    private activatedRouter: ActivatedRoute
   ) {
-    config.backdrop = 'static';
-    config.keyboard = false;
     this.editorForm = this._fb.group({
       title: ['', [Validators.required]],
       description: ['', Validators.required],
@@ -44,7 +41,22 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.id = this.activatedRouter.snapshot.paramMap.get('id');
+    this.activatedRouter.paramMap.subscribe((params: any) => {
+      this.id = params.get('id');
+      console.log('id...', this.id);
+    });
+    this.dataService.getSingleBlog(this.id).subscribe((res: any) => {
+      console.log('res data..', res);
+      this.data = res.data;
+      this.editorForm.controls['title'].patchValue(res.data.title);
+      this.editorForm.controls['description'].patchValue(res.data.description);
+      this.editorValue = res.data.content;
+      let imagename = this.data.image;
+      this.imageSrc = environment.baseUrl + '/' + imagename;
+    });
+  }
 
   saveEditor() {
     const formData = new FormData();
