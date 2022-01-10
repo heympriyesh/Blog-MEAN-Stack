@@ -53,23 +53,18 @@ export class LoginComponent implements OnInit {
               icon: 'success',
               title: 'Signed in successfully',
             });
-            // Swal.fire({
-            //   // position: 'top-end',
-            //   icon: 'success',
-            //   title: 'Logged In SuccessFully',
-            //   showConfirmButton: false,
-            //   timer: 2000,
-            // });
-
-            console.log('res...', res);
             if (res.token) {
               this.dataService.setLogIn();
             }
             localStorage.setItem('token', res.token);
             this.router.navigate(['/creators']);
           },
-          (err) => {
-            console.log('err.message', err.message);
+          ({ error }) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: `${error.message} Please try again!!`,
+            });
           }
         );
     }

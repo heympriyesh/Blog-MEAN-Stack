@@ -25,6 +25,7 @@ export class EditblogComponent implements OnInit {
   public data: any;
   public id: string | null | undefined;
   contentLoaded = false;
+  baseUrl = environment.baseUrl;
   constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
@@ -59,17 +60,35 @@ export class EditblogComponent implements OnInit {
   }
 
   saveEditor() {
-    const formData = new FormData();
-    formData.append('title', this.title);
-    formData.append('content', this.content);
-    formData.append('image', this.file);
-    formData.append('description', this.description);
-    if (this.editorForm.valid) {
-      this.dataService.saveBlogData(formData).subscribe((res) => {
-        // console.log('res value saved', res);
-      });
+    console.log('this.file', this.file);
+    if (!this.file) {
+      let data = {
+        title: this.title,
+        content: this.content,
+        image: this.data.image,
+        description: this.description,
+      };
+      if (this.editorForm.valid) {
+        this.dataService.updateBlog(data, this.id).subscribe((res: any) => {
+          Swal.fire(`${res.message}!`, 'You clicked the button!', 'success');
+          console.log('res value saved', res);
+        });
+      }
+    } else {
+      console.log('else');
+
+      const formData = new FormData();
+      formData.append('title', this.title);
+      formData.append('content', this.content);
+      formData.append('image', this.file);
+      formData.append('description', this.description);
+      if (this.editorForm.valid) {
+        this.dataService.updateBlog(formData, this.id).subscribe((res: any) => {
+          Swal.fire(`${res.message}!`, 'You clicked the button!', 'success');
+          console.log('res value saved', res);
+        });
+      }
     }
-    console.log(this.editorForm.value);
   }
 
   get title() {

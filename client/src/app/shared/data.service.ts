@@ -115,4 +115,12 @@ export class DataService {
   myBlog() {
     return this.http.get(`${this.baseUrl}/auth/myBlogs`, this.setHeader());
   }
+
+  deleteBlog(id: any) {
+    return this.http.delete(`${this.baseUrl}/blog/${id}`, this.setHeader());
+  }
+
+  updateBlog(data: any, id: any) {
+    return this.http.put(`${this.baseUrl}/blog/${id}`, data, this.setHeader());
+  }
 }
