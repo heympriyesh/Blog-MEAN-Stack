@@ -4,13 +4,13 @@ const User = require('../models/User');
 
 exports.protect = async (req, res, next) => {
   let token;
-  console.log('req header value', req.headers.authorization);
+  // console.log('req header value', req.headers.authorization);
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
-    console.log('token the value of token');
+    // console.log('token the value of token');
   }
   if (!token) {
     res.status(401).json({

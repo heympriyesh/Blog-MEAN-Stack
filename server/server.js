@@ -31,6 +31,13 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use('/auth', authRoute);
 app.use('/blog', postRoute);
+
+app.use((error, req, res, next) => {
+  const status = error.statusCode || 500;
+  const message = error.message;
+  const data = error.data;
+  res.status(status).json({ message: message, data: data });
+});
 const PORT = process.env.PORT || 8800;
 
 const server = app.listen(process.env.PORT || 8800, () => {

@@ -7,6 +7,7 @@ const {
   getAllBlogData,
   deleteBlogData,
   singleBlog,
+  updateBlog,
 } = require('../controllers/postController');
 const path = require('path');
 const fs = require('fs');
@@ -28,5 +29,6 @@ router.post('/', protect, upload.single('image'), post);
 router.get('/', getAllBlogData);
 router.get('/:id', singleBlog);
 router.delete('/:id', protect, deleteBlogData);
+router.put('/:id', protect, upload.single('image'), updateBlog);
 
 module.exports = router;
