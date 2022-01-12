@@ -13,7 +13,6 @@ module.exports.post = async (req, res, next) => {
       content: content,
       description: description,
       image: req.file.filename,
-      mimetype: req.file.mimetype,
       user: id,
     });
     post

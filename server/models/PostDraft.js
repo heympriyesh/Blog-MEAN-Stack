@@ -17,9 +17,6 @@ const draftSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please add a thumbnail Image'],
   },
-  mimetype: {
-    type: String,
-  },
   user: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',

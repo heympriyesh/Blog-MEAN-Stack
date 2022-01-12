@@ -43,6 +43,12 @@ const UserSchema = new mongoose.Schema({
       ref: 'Post',
     },
   ],
+  drafts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Draft',
+    },
+  ],
 });
 
 // Encrypt password using bcrypt

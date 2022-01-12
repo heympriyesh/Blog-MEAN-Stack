@@ -30,5 +30,12 @@ router.get('/', getAllBlogData);
 router.get('/:id', singleBlog);
 router.delete('/:id', protect, deleteBlogData);
 router.put('/:id', protect, upload.single('image'), updateBlog);
+/**
+ * Draft Routes
+ */
+router.post('/save-draft');
+router.delete('/delete-draft/:id');
+router.put('/update-draft/:id');
+router.post('/publish-draft/:id');
 
 module.exports = router;

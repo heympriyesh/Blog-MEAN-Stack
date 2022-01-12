@@ -14,5 +14,6 @@ router.post('/login', login);
 router.post('/resetPassword', resetPassword);
 router.get('/getMe', protect, getMe);
 router.get('/myBlogs', protect, myBlog);
+router.get('/myDraft');
 
 module.exports = router;
