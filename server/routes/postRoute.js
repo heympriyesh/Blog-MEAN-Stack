@@ -1,23 +1,23 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const multer = require('multer');
-const { protect } = require('../middleware/authMiddleware');
+const multer = require("multer");
+const { protect } = require("../middleware/authMiddleware");
 const {
   post,
   getAllBlogData,
   deleteBlogData,
   singleBlog,
   updateBlog,
-} = require('../controllers/postController');
-const path = require('path');
-const fs = require('fs');
+} = require("../controllers/postController");
+const path = require("path");
+const fs = require("fs");
 
 const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/');
+    cb(null, "uploads/");
   },
   filename: (req, file, cb) => {
-    const ext = file.originalname.split('.')[1];
+    const ext = file.originalname.split(".")[1];
     cb(null, `admin-${file.fieldname}-${Date.now()}.${ext}`);
   },
 });
@@ -25,17 +25,10 @@ const multerStorage = multer.diskStorage({
 const upload = multer({
   storage: multerStorage,
 });
-router.post('/', protect, upload.single('image'), post);
-router.get('/', getAllBlogData);
-router.get('/:id', singleBlog);
-router.delete('/:id', protect, deleteBlogData);
-router.put('/:id', protect, upload.single('image'), updateBlog);
-/**
- * Draft Routes
- */
-router.post('/save-draft');
-router.delete('/delete-draft/:id');
-router.put('/update-draft/:id');
-router.post('/publish-draft/:id');
+router.post("/", protect, upload.single("image"), post);
+router.get("/", getAllBlogData);
+router.get("/:id", singleBlog);
+router.delete("/:id", protect, deleteBlogData);
+router.put("/:id", protect, upload.single("image"), updateBlog);
 
 module.exports = router;
