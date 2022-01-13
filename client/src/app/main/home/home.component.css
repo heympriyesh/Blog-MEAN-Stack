@@ -105,7 +105,9 @@ img {
   top: -10px;
   right: 12px;
 }
-
+.profile-drop-links {
+  display: none;
+}
 @media only screen and (max-width: 872px) {
   .nav-links {
     display: block;
@@ -116,6 +118,7 @@ img {
     width: 100%;
     text-align: center;
     transition: 0.3s;
+    height: 100vh;
     /* box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05); */
   }
   .nav-links.active {
@@ -126,7 +129,9 @@ img {
   .nav-links.active:hover {
     columns: white;
   }
-
+  .profile-drop-links {
+    display: block;
+  }
   .links {
     margin: 2.5rem 0;
   }
@@ -136,6 +141,9 @@ img {
   .hamburger {
     display: block;
     cursor: pointer;
+  }
+  .profile-drop {
+    display: none;
   }
   .hamburger.active .bar:nth-child(2) {
     opacity: 0;

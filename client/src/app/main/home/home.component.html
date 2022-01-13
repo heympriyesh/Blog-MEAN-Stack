@@ -13,6 +13,22 @@
     <li class="links try-for-free" *ngIf="!loggedIn">
       <a routerLink="/auth/login" matRippe>Try for Free</a>
     </li>
+    <li class="links profile-drop-links" *ngIf="loggedIn">
+      <button
+        mat-raised-button
+        color="primary"
+        class="mb-2"
+        [routerLink]="['/dashboard/profile']"
+      >
+        <!-- (click)="profileDrop()" -->
+        <mat-icon class="mr-2">person_pin </mat-icon>Profile
+      </button>
+    </li>
+    <li class="links profile-drop-links" *ngIf="loggedIn">
+      <button mat-raised-button color="primary" (click)="logout()">
+        <mat-icon class="mr-2">power_settings_new</mat-icon>Logout
+      </button>
+    </li>
     <li class="links profile-drop" *ngIf="loggedIn">
       <div class="profile-image" (click)="profileDrop()">
         <img src="/assets/images/avatar.svg" alt="" id="profile-image" />
@@ -23,12 +39,13 @@
         [ngStyle]="{ display: drop ? 'flex' : 'none' }"
       >
         <a
+          mat-button
           mat-raised-button
           color="primary"
           class="mb-2 text-light m-0 p-0"
           routerLink="/dashboard/profile"
-          (click)="profileDrop()"
         >
+          <!-- (click)="profileDrop()" -->
           <mat-icon class="mr-2">person_pin </mat-icon>Profile
         </a>
         <button mat-raised-button color="primary" (click)="logout()">

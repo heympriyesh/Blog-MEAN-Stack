@@ -6,7 +6,7 @@
         *ngIf="!imageSrc"
         alt="Placeholder image"
       />
-      <img src="{{ imageSrc }}" *ngIf="imageSrc" alt="" />
+      <img src="{{ baseUrl }}/{{ imageSrc }}" *ngIf="imageSrc" alt="" />
       <img
         src="/assets/images/photo_camera.svg"
         alt="upload image"
@@ -62,7 +62,14 @@
         </mat-form-field>
         <div class="form-btn">
           <button mat-raised-button matRippe class="cancel">Cancel</button>
-          <button mat-raised-button matRippe class="save">Save</button>
+          <button
+            mat-raised-button
+            matRippe
+            class="save"
+            (click)="saveDetails()"
+          >
+            Save
+          </button>
         </div>
       </div>
     </form>

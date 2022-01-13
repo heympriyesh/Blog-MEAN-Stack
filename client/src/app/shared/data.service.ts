@@ -123,4 +123,16 @@ export class DataService {
   updateBlog(data: any, id: any) {
     return this.http.put(`${this.baseUrl}/blog/${id}`, data, this.setHeader());
   }
+
+  getMe() {
+    return this.http.get(`${this.baseUrl}/auth/getMe`, this.setHeader());
+  }
+
+  updateUserDetail(data: any) {
+    return this.http.put(
+      `${this.baseUrl}/auth/update-details`,
+      data,
+      this.setHeader()
+    );
+  }
 }

@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Please add a name'],
+    required: [true, "Please add a name"],
   },
   email: {
     type: String,
@@ -13,23 +13,26 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     match: [
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      'Please add a valid email',
+      "Please add a valid email",
     ],
     lowercase: true,
   },
   role: {
     type: String,
-    enum: ['user', 'publisher'],
-    default: 'user',
+    enum: ["user", "publisher"],
+    default: "user",
   },
   verified: {
     type: Boolean,
   },
   password: {
     type: String,
-    required: [true, 'Please add a Password'],
+    required: [true, "Please add a Password"],
     minlength: 6,
     select: false,
+  },
+  image: {
+    type: String,
   },
   resetPasswordToken: String,
   resetPasswordExpire: Date,
@@ -40,20 +43,20 @@ const UserSchema = new mongoose.Schema({
   posts: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Post',
+      ref: "Post",
     },
   ],
   drafts: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Draft',
+      ref: "Draft",
     },
   ],
 });
 
 // Encrypt password using bcrypt
-UserSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
     next();
   }
   const salt = await bcrypt.genSalt(10);
@@ -70,4 +73,4 @@ UserSchema.methods.getSignedJwtToken = function (next) {
   });
 };
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model("User", UserSchema);

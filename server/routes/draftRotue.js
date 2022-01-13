@@ -7,6 +7,8 @@ const {
   deleteDraft,
   updateDraft,
   publishDraft,
+  getAllDraft,
+  getSingleDraft,
 } = require("../controllers/draftController");
 
 const multerStorage = multer.diskStorage({
@@ -19,7 +21,15 @@ const multerStorage = multer.diskStorage({
   },
 });
 
-router.post("/save-draft", protect, saveDraft);
+const upload = multer({
+  storage: multerStorage,
+});
+
+router.get("/get-all-draft", protect, getAllDraft);
+router.get("/get-siingle-draft/:id", protect, getSingleDraft);
+router.post("/save-draft", protect, upload.single("image"), saveDraft);
 router.delete("/delete-draft/:id", protect, deleteDraft);
-router.put("/update-draft/:id", protect, updateDraft);
+router.put("/update-draft/:id", protect, upload.single("image"), updateDraft);
 router.post("/publish-draft/:id", protect, publishDraft);
+
+module.exports = router;
