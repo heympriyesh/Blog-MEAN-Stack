@@ -46,7 +46,7 @@ module.exports.getAllBlogData = async (req, res, next) => {
   try {
     let find = await Post.find({}).sort({ _id: -1 }).populate({
       path: "user",
-      select: "name ",
+      select: "name",
     });
 
     res.status(200).json({

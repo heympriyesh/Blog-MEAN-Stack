@@ -4,6 +4,7 @@ import { CKEditorModule } from 'ngx-ckeditor';
 import { AuthGuard } from '../shared/auth.guard';
 import { DeactivateServiceGuard } from '../shared/deactivate.guard';
 import { EditblogComponent } from './editblog/editblog.component';
+import { EditdraftComponent } from './editdraft/editdraft.component';
 import { HomeComponent } from './home/home.component';
 import { LandingComponent } from './landing/landing.component';
 import { ReadSingleBlogComponent } from './read-single-blog/read-single-blog.component';
@@ -38,6 +39,10 @@ const routes: Routes = [
       {
         path: 'edit/:id',
         component: EditblogComponent,
+      },
+      {
+        path: 'edit-draft/:id',
+        component: EditdraftComponent,
       },
     ],
   },

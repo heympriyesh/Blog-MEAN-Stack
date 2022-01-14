@@ -149,7 +149,7 @@ export class DataService {
     );
   }
 
-  getDraftById(id: string) {
+  getDraftById(id: any) {
     return this.http.get(
       `${this.baseUrl}/draft/get-single-draft/${id}`,
       this.setHeader()
@@ -163,7 +163,7 @@ export class DataService {
     );
   }
 
-  updateDraft(id: string, data: any) {
+  updateDraft(data: any, id: any) {
     return this.http.post(
       `${this.baseUrl}/draft/update-draft/${id}`,
       data,
@@ -172,7 +172,7 @@ export class DataService {
   }
 
   deleteDraft(id: string) {
-    return this.http.get(
+    return this.http.delete(
       `${this.baseUrl}/draft/delete-draft/${id}`,
       this.setHeader()
     );

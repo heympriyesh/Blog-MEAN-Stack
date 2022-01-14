@@ -1,23 +1,22 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-// import { MatDialog } from '@angular/material/dialog';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
 import { DataService } from 'src/app/shared/data.service';
-import { IDeactivateGuard } from 'src/app/shared/deactivate.guard';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { DialogComponent } from '../dialog';
 
 @Component({
-  selector: 'app-writeblog',
-  templateUrl: './writeblog.component.html',
-  styleUrls: ['./writeblog.component.css'],
-  providers: [NgbModalConfig, NgbModal],
+  selector: 'app-editdraft',
+  templateUrl: './editdraft.component.html',
+  styleUrls: [
+    './editdraft.component.css',
+    '../writeblog/writeblog.component.css',
+  ],
 })
-export class WriteblogComponent implements OnInit, IDeactivateGuard {
+export class EditdraftComponent implements OnInit {
   public htmlContent: any = '';
   public editorValue: any = '';
   editorForm: FormGroup;
@@ -26,17 +25,16 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   public data: any;
   public id: string | null | undefined;
   contentLoaded = false;
+  baseUrl = environment.baseUrl;
   constructor(
-    private activatedRouter: ActivatedRoute,
     config: NgbModalConfig,
     private modalService: NgbModal,
     private _fb: FormBuilder,
     public dialog: MatDialog,
     private renderer: Renderer2,
-    private dataService: DataService
+    private dataService: DataService,
+    private activatedRouter: ActivatedRoute
   ) {
-    config.backdrop = 'static';
-    config.keyboard = false;
     this.editorForm = this._fb.group({
       title: ['', [Validators.required]],
       description: ['', Validators.required],
@@ -44,42 +42,55 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.id = this.activatedRouter.snapshot.paramMap.get('id');
+    this.activatedRouter.paramMap.subscribe((params: any) => {
+      this.id = params.get('id');
+      console.log('id...', this.id);
+    });
+    this.dataService.getDraftById(this.id).subscribe((res: any) => {
+      console.log('res data..', res);
+      this.data = res.data;
+      this.editorForm.controls['title'].patchValue(res.data.title);
+      this.editorForm.controls['description'].patchValue(res.data.description);
+      this.editorValue = res.data.content;
+      let imagename = this.data.image;
+      this.imageSrc = environment.baseUrl + '/' + imagename;
+    });
+  }
 
-  publishBlog() {
-    const formData = new FormData();
-    formData.append('title', this.title);
-    formData.append('content', this.content);
-    formData.append('image', this.file);
-    formData.append('description', this.description);
-    if (this.editorForm.valid) {
-      this.dataService.saveBlogData(formData).subscribe((res) => {
-        console.log('res value saved', res);
-      });
+  saveEditor() {
+    console.log('this.file', this.file);
+    if (!this.file) {
+      let data = {
+        title: this.title,
+        content: this.content,
+        image: this.data.image,
+        description: this.description,
+      };
+      if (this.editorForm.valid) {
+        this.dataService.updateDraft(data, this.id).subscribe((res: any) => {
+          Swal.fire(`${res.message}!`, 'You clicked the button!', 'success');
+          console.log('res value saved', res);
+        });
+      }
+    } else {
+      console.log('else');
+
+      const formData = new FormData();
+      formData.append('title', this.title);
+      formData.append('content', this.content);
+      formData.append('image', this.file);
+      formData.append('description', this.description);
+      if (this.editorForm.valid) {
+        this.dataService.updateBlog(formData, this.id).subscribe((res: any) => {
+          Swal.fire(`${res.message}!`, 'You clicked the button!', 'success');
+          console.log('res value saved', res);
+        });
+      }
     }
-    console.log(this.editorForm.value);
   }
 
-  resetBlog() {
-    this.editorForm.reset();
-    console.log(
-      '🚀 ~ file: writeblog.component.ts ~ line 66 ~ WriteblogComponent ~ resetBlog ~ this.editorForm',
-      this.editorForm
-    );
-  }
-
-  saveAsDraft() {
-    const formData = new FormData();
-    formData.append('title', this.title);
-    formData.append('content', this.content);
-    formData.append('image', this.file);
-    formData.append('description', this.description);
-    if (this.editorForm.valid) {
-      this.dataService.saveAsDraft(formData).subscribe((res) => {
-        console.log('res value saved', res);
-      });
-    }
-  }
   get title() {
     return this.editorForm.value['title'];
   }
@@ -109,6 +120,7 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
+      // this.animal = result;
     });
   }
 
@@ -156,11 +168,7 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
 
   canExit() {
     if (this.editorForm.dirty) {
-      if (
-        confirm(
-          'Are you sure you want to leave? All the Changes will be discarded'
-        )
-      ) {
+      if (confirm('Are you sure you want to leave')) {
         return true;
       } else {
         return false;

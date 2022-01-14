@@ -21,6 +21,7 @@ export class MyblogComponent implements OnInit {
     private dataService: DataService,
     private router: Router
   ) {}
+
   ngOnInit(): void {
     this.blogData();
   }
@@ -69,13 +70,15 @@ export class MyblogComponent implements OnInit {
       }
     );
   }
+
   counter(i: number) {
     return new Array(i);
   }
+
   editBlog(id: any) {
-    // console.log('edit blog ', id);
     this.router.navigate(['/edit', id]);
   }
+
   deleteBlog(id: any) {
     Swal.fire({
       title: 'Are you sure?',

@@ -32,8 +32,8 @@
         (click)="normal.click()"
         class="uploadFile"
       >
-        <mat-icon inline="true" class="color-white">file_upload</mat-icon>
-        Choose Thumbnail Image
+        <mat-icon inline="true" class="color-white">file_upload</mat-icon> Choos
+        Thumbnail Image
       </button>
     </div>
     <div class="ck-editor-div mb-4">
@@ -46,14 +46,13 @@
       ></ck-editor>
     </div>
   </form>
+
   <div class="editor-buttons">
-    <button mat-raised-button color="primary" (click)="saveAsDraft()">
+    <button mat-raised-button color="primary" (click)="saveEditor()">
       Save As Draft
     </button>
-    <button mat-raised-button color="warn" (click)="resetBlog()">Reset</button>
-    <button mat-raised-button color="accent" (click)="publishBlog()">
-      Publish
-    </button>
+    <button mat-raised-button color="warn">Reset</button>
+    <button mat-raised-button color="accent">Publish</button>
     <button mat-raised-button color="primary" (click)="openDialog()">
       Preview
     </button>

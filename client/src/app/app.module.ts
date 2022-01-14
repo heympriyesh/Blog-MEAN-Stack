@@ -8,11 +8,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/MaterialModule/material.module';
 import { CKEditorModule } from 'ngx-ckeditor';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { DeactivateServiceGuard } from './shared/deactivate.guard';
 import { AuthGuard } from './shared/auth.guard';
+import { InterceptorService } from './shared/interceptor.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +30,11 @@ import { AuthGuard } from './shared/auth.guard';
     SweetAlert2Module.forRoot(),
     NgxSkeletonLoaderModule,
   ],
-  providers: [DeactivateServiceGuard, AuthGuard],
+  providers: [
+    DeactivateServiceGuard,
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+  ],
   bootstrap: [AppComponent],
   exports: [],
 })

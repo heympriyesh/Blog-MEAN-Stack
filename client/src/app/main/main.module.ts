@@ -15,6 +15,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ReadSingleBlogComponent } from './read-single-blog/read-single-blog.component';
 import { SharedNavBarModule } from './SharedNavBar/shard-navbar.module';
 import { EditblogComponent } from './editblog/editblog.component';
+import { EditdraftComponent } from './editdraft/editdraft.component';
 // import { SharedModule } from '../shared/shared.module';
 
 // HomeComponent,
@@ -26,6 +27,7 @@ import { EditblogComponent } from './editblog/editblog.component';
     ReadblogComponent,
     ReadSingleBlogComponent,
     EditblogComponent,
+    EditdraftComponent,
   ],
   imports: [
     CommonModule,

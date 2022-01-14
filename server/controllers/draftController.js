@@ -40,23 +40,17 @@ exports.saveDraft = async (req, res, next) => {
 };
 
 exports.getAllDraft = async (req, res, next) => {
+  const id = req.user.id;
   try {
-    let blog = await Draft.find({}).sort({ _id: -1 }).populate({
-      path: "user",
-      select: "name",
+    let blog = await User.findById(id).populate({
+      path: "drafts",
     });
     res.status(200).json({
       success: true,
-      message: "Draft Data Found",
-      data: {
-        data: blog,
-        total: blog.length,
-      },
+      blog,
     });
   } catch (err) {
-    res.send(400).json({
-      error: err,
-    });
+    res.send(err);
   }
 };
 

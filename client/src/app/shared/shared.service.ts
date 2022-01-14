@@ -8,6 +8,7 @@ export class SharedService {
   public navColor = new BehaviorSubject<string>('');
   public showNavar = new BehaviorSubject<boolean>(true);
   public profileUrl = new Subject();
+  public loading = new BehaviorSubject<boolean>(false);
   constructor() {}
 
   public setNavColor() {
