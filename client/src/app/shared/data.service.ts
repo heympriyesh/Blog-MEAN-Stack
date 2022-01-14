@@ -135,4 +135,56 @@ export class DataService {
       this.setHeader()
     );
   }
+
+  /**
+   * Draft Routes Starts Here
+   *
+   */
+
+  saveAsDraft(data: any) {
+    return this.http.post(
+      `${this.baseUrl}/draft/save-draft`,
+      data,
+      this.setHeader()
+    );
+  }
+
+  getDraftById(id: string) {
+    return this.http.get(
+      `${this.baseUrl}/draft/get-single-draft/${id}`,
+      this.setHeader()
+    );
+  }
+
+  getAllDraft() {
+    return this.http.get(
+      `${this.baseUrl}/draft/get-all-draft`,
+      this.setHeader()
+    );
+  }
+
+  updateDraft(id: string, data: any) {
+    return this.http.post(
+      `${this.baseUrl}/draft/update-draft/${id}`,
+      data,
+      this.setHeader()
+    );
+  }
+
+  deleteDraft(id: string) {
+    return this.http.get(
+      `${this.baseUrl}/draft/delete-draft/${id}`,
+      this.setHeader()
+    );
+  }
+
+  publishDraft(id: string, data: any) {
+    return this.http.post(
+      `${this.baseUrl}/draft/publish-draft/${id}`,
+      data,
+      this.setHeader()
+    );
+  }
+
+  //Drafts Routes Ends Here
 }

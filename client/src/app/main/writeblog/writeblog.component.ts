@@ -46,7 +46,7 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
 
   ngOnInit(): void {}
 
-  saveEditor() {
+  publishBlog() {
     const formData = new FormData();
     formData.append('title', this.title);
     formData.append('content', this.content);
@@ -60,6 +60,20 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
     console.log(this.editorForm.value);
   }
 
+  resetBlog() {}
+
+  saveAsDraft() {
+    const formData = new FormData();
+    formData.append('title', this.title);
+    formData.append('content', this.content);
+    formData.append('image', this.file);
+    formData.append('description', this.description);
+    if (this.editorForm.valid) {
+      this.dataService.saveAsDraft(formData).subscribe((res) => {
+        console.log('res value saved', res);
+      });
+    }
+  }
   get title() {
     return this.editorForm.value['title'];
   }
@@ -89,7 +103,6 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
-      // this.animal = result;
     });
   }
 
@@ -137,7 +150,11 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
 
   canExit() {
     if (this.editorForm.dirty) {
-      if (confirm('Are you sure you want to leave')) {
+      if (
+        confirm(
+          'Are you sure you want to leave? All the Changes will be discarded'
+        )
+      ) {
         return true;
       } else {
         return false;

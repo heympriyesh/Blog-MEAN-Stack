@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
   },
   {
-    path: 'dashboard',
+    path: 'profile',
     loadChildren: () =>
       import('./main/profile/profile.module').then((m) => m.ProfileModule),
   },

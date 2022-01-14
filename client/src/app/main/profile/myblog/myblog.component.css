@@ -92,3 +92,9 @@ img {
   top: 2px;
   cursor: pointer;
 }
+.no-data-found {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 50%;
+}

@@ -88,3 +88,7 @@ input[type="file"] {
 .color-white {
   background-color: #3f51b5;
 }
+.editor-buttons > button {
+  padding-left: 8px;
+  padding-right: 8px;
+}

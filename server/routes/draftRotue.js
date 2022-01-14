@@ -26,7 +26,7 @@ const upload = multer({
 });
 
 router.get("/get-all-draft", protect, getAllDraft);
-router.get("/get-siingle-draft/:id", protect, getSingleDraft);
+router.get("/get-single-draft/:id", protect, getSingleDraft);
 router.post("/save-draft", protect, upload.single("image"), saveDraft);
 router.delete("/delete-draft/:id", protect, deleteDraft);
 router.put("/update-draft/:id", protect, upload.single("image"), updateDraft);
