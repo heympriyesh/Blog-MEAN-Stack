@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   login() {
-    console.log('Login...', this.loginForm.value);
     if (this.loginForm.valid) {
       this.http
         .post(`${this.baseUrl}/auth/login`, this.loginForm.value)

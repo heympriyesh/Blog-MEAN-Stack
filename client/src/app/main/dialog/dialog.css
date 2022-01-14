@@ -38,3 +38,11 @@
   width: 107px;
   height: 52px !important;
 }
+.dialog-image {
+  width: 70%;
+  height: auto;
+}
+img {
+  height: 100%;
+  width: 100%;
+}

@@ -55,6 +55,14 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
     if (this.editorForm.valid) {
       this.dataService.saveBlogData(formData).subscribe((res) => {
         console.log('res value saved', res);
+        this.resetBlog();
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Your work has been saved',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       });
     }
     console.log(this.editorForm.value);
@@ -62,10 +70,8 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
 
   resetBlog() {
     this.editorForm.reset();
-    console.log(
-      '🚀 ~ file: writeblog.component.ts ~ line 66 ~ WriteblogComponent ~ resetBlog ~ this.editorForm',
-      this.editorForm
-    );
+    this.file = undefined;
+    this.imageSrc = undefined;
   }
 
   saveAsDraft() {
@@ -80,6 +86,7 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
       });
     }
   }
+
   get title() {
     return this.editorForm.value['title'];
   }
@@ -124,9 +131,6 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
       const reader = new FileReader();
       reader.onload = (e) => (this.imageSrc = reader.result);
       reader.readAsDataURL(this.file);
-
-      // this.renderer.setStyle(Elemen)
-      console.log('FileUpload -> files', fileList);
     }
   }
 
@@ -155,15 +159,21 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   }
 
   canExit() {
-    if (this.editorForm.dirty) {
+    if (this.title !== null || this.description !== null) {
       if (
-        confirm(
-          'Are you sure you want to leave? All the Changes will be discarded'
-        )
+        this.title.length > 0 ||
+        this.description.length > 0 ||
+        this.content.length > 0
       ) {
-        return true;
-      } else {
-        return false;
+        if (
+          confirm(
+            'Are you sure you want to leave? All the Changes will be discarded'
+          )
+        ) {
+          return true;
+        } else {
+          return false;
+        }
       }
     }
     return true;

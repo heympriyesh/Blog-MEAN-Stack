@@ -36,6 +36,7 @@ img {
   line-height: 29px;
   height: auto;
   margin-top: 2px;
+  padding: 0 8px 0 8px;
 }
 .landing-get-started-button {
   background-color: #d85c51;
@@ -53,6 +54,10 @@ img {
   margin: 0 auto;
   letter-spacing: 1px;
   line-height: 21px;
+}
+.main-text {
+  position: absolute;
+  top: 20%;
 }
 
 /* For extremely small screen devices (595px and below) */

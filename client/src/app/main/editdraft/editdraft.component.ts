@@ -107,6 +107,12 @@ export class EditdraftComponent implements OnInit {
     this.modalService.open(content);
   }
 
+  resetDraft() {
+    this.editorForm.reset();
+    this.file = undefined;
+    this.imageSrc = undefined;
+  }
+
   openDialog(): void {
     let dialogRef = this.dialog.open(DialogComponent, {
       width: '100%',

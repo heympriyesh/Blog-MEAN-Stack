@@ -166,6 +166,12 @@ export class EditblogComponent implements OnInit {
     return fire;
   }
 
+  resetBlog() {
+    this.editorForm.reset();
+    this.file = undefined;
+    this.imageSrc = undefined;
+  }
+
   canExit() {
     if (this.editorForm.dirty) {
       if (confirm('Are you sure you want to leave')) {

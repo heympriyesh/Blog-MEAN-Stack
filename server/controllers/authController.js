@@ -119,6 +119,7 @@ const sendTokenResponse = (user, statusCode, res) => {
     httpOnly: true,
   };
   let roleId;
+  let imageUrl = user.image;
   if (user.role === "user") {
     roleId = 1;
   } else {
@@ -129,5 +130,6 @@ const sendTokenResponse = (user, statusCode, res) => {
     success: true,
     token,
     roleId,
+    imageUrl,
   });
 };
