@@ -16,25 +16,21 @@ exports.saveDraft = async (req, res, next) => {
       image: req.file.filename,
       user: id,
     });
-    draft
-      .save()
-      .then((result) => {
-        return User.findById(req.user.id);
-      })
-      .then((user) => {
-        creator = user;
-        user.drafts.push(draft);
-        return user.save();
-      })
-      .then((result) => {
-        res.status(200).json({
-          message: "Blog Saved in Drafts",
-          draft: draft,
-          creator: { _id: creator._id, name: creator.name },
-        });
-      });
+    await draft.save();
+    let user = await User.findById(req.user.id);
+    creator = user;
+    await user.drafts.push(draft);
+    await user.save();
+    res.status(200).json({
+      message: "Blog Saved in Drafts",
+      draft: draft,
+      creator: { _id: creator._id, name: creator.name },
+    });
   } catch (err) {
-    res.status(400).send(err);
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
   }
 };
 
@@ -49,13 +45,15 @@ exports.getAllDraft = async (req, res, next) => {
       blog,
     });
   } catch (err) {
-    res.send(err);
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
   }
 };
 
 exports.getSingleDraft = async (req, res, next) => {
   const { id } = req.params;
-  // console.log("id", id);
   try {
     const singleDraft = await Draft.findById(id).populate({
       path: "user",
@@ -73,96 +71,77 @@ exports.getSingleDraft = async (req, res, next) => {
       data: singleDraft,
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-      err: err,
-    });
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
   }
 };
 
 exports.deleteDraft = async (req, res, next) => {
   const { id } = req.params;
-  Draft.findById(id)
-    .then((draft) => {
-      if (!draft) {
-        const error = new Error("Could not Find the post");
-        error.statusCode = 404;
-        throw error;
-      }
-      if (draft.user.toString() !== req.user.id) {
-        const error = new Error("Not Authorized");
-        error.statusCode = 403;
-        throw error;
-      }
-      clearImage(draft.image);
-      return Draft.findByIdAndRemove(id);
-    })
-    .then((result) => {
-      return User.findById(req.user.id);
-    })
-    .then((user) => {
-      user.drafts.pull(id);
-      return user.save();
-    })
-    .then((result) => {
-      res.status(200).json({
-        message: "Draft Deleted",
-      });
-    })
-    .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+  try {
+    let draft = await Draft.findById(id);
+    if (!draft) {
+      const error = new Error("Could not Find the post");
+      error.statusCode = 404;
+      throw error;
+    }
+    if (draft.user.toString() !== req.user.id) {
+      const error = new Error("Not Authorized");
+      error.statusCode = 403;
+      throw error;
+    }
+    clearImage(draft.image);
+    await Draft.findByIdAndRemove(id);
+    let user = await User.findById(req.user.id);
+    await user.drafts.pull(id);
+    await user.save();
+    res.status(200).json({
+      message: "Draft Deleted",
     });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
 };
 
-exports.updateDraft = (req, res, next) => {
+exports.updateDraft = async (req, res, next) => {
   const id = req.params.id;
   const { title, description, content } = req.body;
   let image = req.body.image;
-  if (req.file) {
-    console.log("req.file", req.file);
-    image = req.file.filename;
-  }
-  if (!image) {
-    const error = new Error("No File picked.");
-    error.statusCode = 422;
-    throw error;
-  }
-  Draft.findById(id)
-    .then((post) => {
-      if (!post) {
-        const error = new Error("Could not find post.");
-        error.statusCode = 404;
-        throw error;
-      }
-      if (post.user.toString() !== req.user.id) {
-        const error = new Error("Not Authorized!");
-        error.statusCode = 403;
-        throw error;
-      }
-      if (image !== post.image) {
-        clearImage(post.image);
-      }
-      post.title = title;
-      post.image = image;
-      post.description = description;
-      post.content = content;
-      return post.save();
-    })
-    .then((result) => {
-      res.status(200).json({
-        message: "Draft updated!",
-        post: result,
-      });
-    })
-    .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+  try {
+    let post = await Draft.findById(id);
+    if (!post) {
+      const error = new Error("Could not find post.");
+      error.statusCode = 404;
+      throw error;
+    }
+    if (post.user.toString() !== req.user.id) {
+      const error = new Error("Not Authorized!");
+      error.statusCode = 403;
+      throw error;
+    }
+    if (image !== post.image) {
+      clearImage(post.image);
+    }
+    post.title = title;
+    post.image = image;
+    post.description = description;
+    post.content = content;
+    let result = await post.save();
+    res.status(200).json({
+      message: "Draft updated!",
+      post: result,
     });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
 };
 
 exports.publishDraft = async (req, res, next) => {
