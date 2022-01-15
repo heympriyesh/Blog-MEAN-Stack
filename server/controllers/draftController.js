@@ -171,11 +171,10 @@ exports.publishDraft = async (req, res, next) => {
       creator: { _id: creator._id, name: creator.name },
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-      message: "Something Went wrong..",
-      err: err,
-    });
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
   }
 };
 

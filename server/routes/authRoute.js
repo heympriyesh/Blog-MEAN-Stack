@@ -5,6 +5,7 @@ const {
   getMe,
   myBlog,
   updateDetails,
+  updatePassword,
 } = require("../controllers/authController");
 const { protect } = require("../middleware/authMiddleware");
 const express = require("express");
@@ -32,5 +33,7 @@ router.post("/signup", signup);
 router.post("/login", login);
 router.post("/resetPassword", resetPassword);
 router.put("/update-details", protect, upload.single("image"), updateDetails);
+router.put("/upate-password", protect, updatePassword);
+// router.put('/reset-password',)
 
 module.exports = router;

@@ -3,6 +3,7 @@ const ErrorResponse = require("../utils/errorResponse");
 const User = require("../models/User");
 const Post = require("../models/Post");
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 exports.login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
@@ -101,9 +102,60 @@ exports.updateDetails = async (req, res, next) => {
   }
 };
 
-// exports.updatePassword=async(req,res,next)=>{
+exports.updatePassword = async (req, res, next) => {
+  const { confirmPassword, currentPassword, newPassword } = req.body;
+  try {
+    if (!confirmPassword || !currentPassword || !newPassword) {
+      res.status(400).send("Fields cannot be empty");
+    }
 
-// }
+    if (confirmPassword !== newPassword) {
+      res.status(400).send("Please Enter same password");
+    }
+
+    if (currentPassword === newPassword) {
+      res.status(400).json({
+        message: "Current And new Password Cannot be same",
+      });
+    }
+    const salt = await bcrypt.genSalt(10);
+    const updatedPassword = await bcrypt.hash(newPassword, salt);
+    if (confirmPassword !== newPassword) {
+      res.status(400).json({
+        message: "Password Dosen't Match",
+        success: false,
+      });
+    }
+    if (confirmPassword === newPassword) {
+      const user = await User.findById(req.user.id).select("+password");
+      const auth = await bcrypt.compare(currentPassword, user.password);
+      if (auth) {
+        const userData = await User.updateOne(
+          { _id: req.user.id },
+          { $set: { password: updatedPassword } }
+        );
+
+        const token = user.getSignedJwtToken();
+
+        res.status(200).json({
+          message: "Password Updated Successfully",
+          token: token,
+          success: true,
+        });
+      } else {
+        res.status(200).json({
+          message: "Current Password Dosen't Match",
+          success: false,
+        });
+      }
+    }
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
 // exports.resetPassword=async (req,res,next)=>{
 
 // }
