@@ -60,7 +60,6 @@ export class EditblogComponent implements OnInit {
   }
 
   saveEditor() {
-    console.log('this.file', this.file);
     if (!this.file) {
       let data = {
         title: this.title,
@@ -75,8 +74,6 @@ export class EditblogComponent implements OnInit {
         });
       }
     } else {
-      console.log('else');
-
       const formData = new FormData();
       formData.append('title', this.title);
       formData.append('content', this.content);

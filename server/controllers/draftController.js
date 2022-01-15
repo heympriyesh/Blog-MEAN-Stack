@@ -3,7 +3,6 @@ const Draft = require("../models/PostDraft");
 const Post = require("../models/Post");
 const path = require("path");
 const fs = require("fs");
-const { post } = require("./postController");
 
 exports.saveDraft = async (req, res, next) => {
   const { content, title, description } = req.body;
@@ -167,11 +166,38 @@ exports.updateDraft = (req, res, next) => {
 };
 
 exports.publishDraft = async (req, res, next) => {
-  const { id } = req.params;
   try {
-    const draft = await Draf.findById(id);
-    console.log("publish draft", draft);
-  } catch (err) {}
+    const draft = await Draft.findById(id);
+    const { content, title, description, image } = draft;
+    console.log(content, title, description, image);
+    let creator;
+    const post = await new Post({
+      title: title,
+      content: content,
+      description: description,
+      image: image,
+      user: req.user.id,
+    });
+    await post.save();
+    let user = await User.findById(req.user.id);
+    creator = user;
+    await user.posts.push(post);
+    await user.drafts.pull(id);
+    await user.save();
+    await Draft.findByIdAndRemove(id);
+
+    res.status(201).json({
+      message: "Blog Published Successfully",
+      post: post,
+      creator: { _id: creator._id, name: creator.name },
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: "Something Went wrong..",
+      err: err,
+    });
+  }
 };
 
 const clearImage = (filePath) => {

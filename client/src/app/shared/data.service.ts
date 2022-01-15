@@ -164,7 +164,7 @@ export class DataService {
   }
 
   updateDraft(data: any, id: any) {
-    return this.http.post(
+    return this.http.put(
       `${this.baseUrl}/draft/update-draft/${id}`,
       data,
       this.setHeader()
