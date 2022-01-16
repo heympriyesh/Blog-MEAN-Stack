@@ -2,8 +2,9 @@ const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
 const User = require("../models/User");
 const Post = require("../models/Post");
-const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const sendEmail = require("../utils/sendEmail");
+const crypto = require("crypto");
 
 exports.login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
@@ -44,22 +45,61 @@ exports.signup = asyncHandler(async (req, res, next) => {
 });
 
 exports.resetPassword = asyncHandler(async (req, res, next) => {
-  const { password, confirmPasssword } = req.body;
+  const { newPassword, confirmPassword } = req.body;
+  if (newPassword !== confirmPassword) {
+    res.status(400).json({
+      message: "New Password and Confirm Password must be same",
+    });
+  }
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.resettoken)
+    .digest("hex");
+  console.log(
+    "🚀 ~ file: authController.js ~ line 58 ~ exports.resetPassword=asyncHandler ~ resetPasswordToken",
+    resetPasswordToken
+  );
+
+  const user = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return next(new ErrorResponse("Invalid token", 400));
+  }
+  console.log(req.body);
+
+  // Set new password
+  console.log("user", user);
+  user.password = newPassword;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+  await user.save();
+
+  sendTokenResponse(user, 200, res);
 });
 
 exports.getMe = async (req, res, next) => {
   const id = req.user.id;
-  const user = await User.findById(id).select("email name image");
-  if (!user) {
-    res.status(401).json({
-      success: false,
-      message: "User not Found",
+  try {
+    const user = await User.findById(id).select("email name image");
+    if (!user) {
+      res.status(401).json({
+        success: false,
+        message: "User not Found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      data: user,
     });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
   }
-  res.status(200).json({
-    success: true,
-    data: user,
-  });
 };
 
 exports.myBlog = async (req, res, nex) => {
@@ -106,11 +146,11 @@ exports.updatePassword = async (req, res, next) => {
   const { confirmPassword, currentPassword, newPassword } = req.body;
   try {
     if (!confirmPassword || !currentPassword || !newPassword) {
-      res.status(400).send("Fields cannot be empty");
+      res.status(400).json({ message: "Fields cannot be empty" });
     }
 
     if (confirmPassword !== newPassword) {
-      res.status(400).send("Please Enter same password");
+      res.status(400).json({ message: "Confirm and NewPassword Must be same" });
     }
 
     if (currentPassword === newPassword) {
@@ -156,9 +196,71 @@ exports.updatePassword = async (req, res, next) => {
     next(err);
   }
 };
-// exports.resetPassword=async (req,res,next)=>{
 
-// }
+exports.forgotPasword = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user) {
+      err.statusCode = 404;
+      err.message = "There is no user with that email";
+      next(err);
+    }
+    // Get reset token
+    const resetToken = user.getResetPasswordToken();
+    await user.save({ validateBeforeSave: false });
+
+    // Create reset url
+    const resetUrl = `${process.env.RESET_PASSWORD_URL}/${resetToken}`;
+    const message = `You are receiving this email because you (or someone else) has requested the rest of a password. Please make a PUT request to:\n\n <a href=${resetUrl}>Click here</a>`;
+
+    await sendEmail({
+      email: user.email,
+      subject: "Password reset token",
+      message,
+      resetUrl,
+    });
+
+    res.status(200).json({ success: true, data: "Email Sent" });
+  } catch (err) {
+    console.log(err);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save({ validateBeforeSave: false });
+
+    return next(new ErrorResponse("Email could not be sent", 500));
+  }
+};
+
+// exports.resetPassword = asyncHandler(async (req, res, next) => {
+//   // Get hashed token
+
+//   const resetPasswordToken = crypto
+//     .createHash("sha256")
+//     .update(req.params.resettoken)
+//     .digest("hex");
+//   console.log(
+//     "🚀 ~ file: authController.js ~ line 317 ~ exports.resetPassword=asyncHandler ~ resetPasswordToken",
+//     resetPasswordToken
+//   );
+
+//   const user = await User.findOne({
+//     resetPasswordToken,
+//     resetPasswordExpire: { $gt: Date.now() },
+//   });
+
+//   if (!user) {
+//     return next(new ErrorResponse("Invalid token", 400));
+//   }
+//   // Set new password
+//   user.password = req.body.password;
+//   user.resetPasswordToken = undefined;
+//   user.resetPasswordExpire = undefined;
+//   await user.save();
+
+//   sendTokenResponse(user, 200, res);
+// });
 
 const sendTokenResponse = (user, statusCode, res) => {
   const token = user.getSignedJwtToken();

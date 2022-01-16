@@ -4,6 +4,7 @@ const {
   resetPassword,
   getMe,
   myBlog,
+  forgotPasword,
   updateDetails,
   updatePassword,
 } = require("../controllers/authController");
@@ -31,9 +32,9 @@ router.get("/myBlogs", protect, myBlog);
 router.get("/myDraft");
 router.post("/signup", signup);
 router.post("/login", login);
-router.post("/resetPassword", resetPassword);
 router.put("/update-details", protect, upload.single("image"), updateDetails);
 router.put("/upate-password", protect, updatePassword);
-// router.put('/reset-password',)
+router.post("/forgotPassowrd", forgotPasword);
+router.put("/resetpassword/:resettoken", resetPassword);
 
 module.exports = router;

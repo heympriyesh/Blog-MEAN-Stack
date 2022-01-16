@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/shared/data.service';
+import { SharedService } from 'src/app/shared/shared.service';
 import { environment } from 'src/environments/environment';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
     private _fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private dataService: DataService
+    private dataService: DataService,
+    private sharedService: SharedService
   ) {
     this.loginForm = this._fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -55,6 +57,7 @@ export class LoginComponent implements OnInit {
             if (res.token) {
               this.dataService.setLogIn();
             }
+            this.sharedService.setProfileImage(res.imageUrl);
             localStorage.setItem('token', res.token);
             this.router.navigate(['/creators']);
           },

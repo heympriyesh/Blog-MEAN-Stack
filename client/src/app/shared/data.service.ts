@@ -91,6 +91,31 @@ export class DataService {
       this.isLoggedIn.next(false);
     }
   }
+
+  forgotPassword(email: any) {
+    return this.http.post(
+      `${this.baseUrl}/auth/forgotPassowrd`,
+      email,
+      this.setHeader()
+    );
+  }
+
+  updatePassword(data: any) {
+    return this.http.put(
+      `${this.baseUrl}/auth/upate-password`,
+      data,
+      this.setHeader()
+    );
+  }
+
+  resetPassword(data: any, id: any) {
+    return this.http.put(
+      `${this.baseUrl}/auth/resetpassword/${id}`,
+      data,
+      this.setHeader()
+    );
+  }
+
   /**
    * Get All Blogs
    */

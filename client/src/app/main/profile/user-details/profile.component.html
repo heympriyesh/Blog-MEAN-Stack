@@ -1,12 +1,12 @@
 <div class="profile-container">
   <div class="profile-image-section">
     <div class="profile-img">
-      <img
+      <!-- <img
         src="/assets/images/placeholder-image.jpg"
         *ngIf="!imageSrc"
         alt="Placeholder image"
-      />
-      <img src="{{ baseUrl }}/{{ imageSrc }}" *ngIf="imageSrc" alt="" />
+      /> -->
+      <img [src]="imageSrc || '/assets/images/placeholder-image.jpg'" alt="" />
       <img
         src="/assets/images/photo_camera.svg"
         alt="upload image"

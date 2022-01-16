@@ -93,9 +93,9 @@ img {
   width: 130px;
   right: 87px;
 }
-/* #profile-dropdown {
-  display: none;
-} */
+#profile_img {
+  border-radius: 50%;
+}
 .profile-dropdown::before {
   content: " ";
   border-left: 10px solid transparent;

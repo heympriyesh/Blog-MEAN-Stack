@@ -7,6 +7,8 @@ import {
   EmailChangeDialogComponent,
   PasswordChangeDialogComponent,
 } from '../../dialog';
+import Swal, { SweetAlertOptions } from 'sweetalert2';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +23,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private dialog: MatDialog,
-    private dataServie: DataService
+    private dataServie: DataService,
+    private sharedService: SharedService
   ) {
     this.profileForm = this._fb.group({
       fullname: ['', [Validators.required]],
@@ -29,12 +32,14 @@ export class ProfileComponent implements OnInit {
       image: [''],
     });
   }
+
   ngOnInit(): void {
     this.dataServie.getMe().subscribe((res: any) => {
+      this.sharedService.setProfileImage(res.data.image);
       this.profileForm.controls['fullname'].patchValue(res.data.name);
       this.profileForm.controls['email'].patchValue(res.data.email);
       if (res.data.image) {
-        this.imageSrc = res.data.image;
+        this.imageSrc = this.baseUrl + '/' + res.data.image;
       }
     });
   }
@@ -66,7 +71,6 @@ export class ProfileComponent implements OnInit {
 
   saveDetails() {
     let formData = new FormData();
-
     if (this.file) {
       formData.append('name', this.name);
       formData.append('image', this.file);
@@ -75,16 +79,41 @@ export class ProfileComponent implements OnInit {
         console.log('res', res);
       });
     } else {
+      let image = this.imageSrc.split(`${this.baseUrl}/`);
       let data = {
         name: this.name,
         email: this.email,
-        image: this.imageSrc,
+        image: image[1],
       };
-      this.dataServie.updateUserDetail(data).subscribe((res) => {
-        console.log('res', res);
-      });
+      this.dataServie.updateUserDetail(data).subscribe(
+        (res) => {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          });
+          Toast.fire({
+            icon: 'success',
+            title: 'Detail Updated successfully',
+          });
+        },
+        ({ error }) => {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          });
+          Toast.fire({
+            icon: 'error',
+            title: `${error.message}`,
+          });
+        }
+      );
     }
-    formData.append('profile', this.profileForm.get('photo')?.value);
   }
 
   openPassworChangeDialog() {

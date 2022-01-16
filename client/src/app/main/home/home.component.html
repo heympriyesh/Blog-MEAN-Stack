@@ -31,7 +31,12 @@
     </li>
     <li class="links profile-drop" *ngIf="loggedIn">
       <div class="profile-image" (click)="profileDrop()">
-        <img src="/assets/images/avatar.svg" alt="" id="profile-image" />
+        <img
+          [src]="profileImage || '/assets/images/avatar.svg'"
+          alt=""
+          id="profile-image"
+          id="profile_img"
+        />
         <mat-icon> arrow_drop_down </mat-icon>
       </div>
       <div

@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   public loggedIn: boolean = false;
   public drop: boolean = false;
   public routerOutlet: boolean = true;
+  public profileImage: string = '';
   constructor(
     private elementRef: ElementRef,
     private rendere: Renderer2,
@@ -37,6 +38,9 @@ export class HomeComponent implements OnInit {
   color: string = '';
 
   ngOnInit(): void {
+    this.dataService.getMe().subscribe((res: any) => {
+      this.sharedService.setProfileImage(res.data.image);
+    });
     this.sharedService.setRouterOutlet(this.route.url);
     this.sharedService.showNavar.subscribe((val) => {
       this.routerOutlet = val;
@@ -51,6 +55,9 @@ export class HomeComponent implements OnInit {
 
     this.dataService.isLoggedIn.subscribe((val) => {
       this.loggedIn = val;
+    });
+    this.sharedService.profileImageUrl.subscribe((res) => {
+      this.profileImage = res;
     });
   }
 

@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedService {
+  baseUrl = environment.baseUrl;
   public navColor = new BehaviorSubject<string>('');
   public showNavar = new BehaviorSubject<boolean>(true);
   public profileUrl = new Subject();
   public loading = new BehaviorSubject<boolean>(false);
   public profileImageUrl = new BehaviorSubject<string>('');
+
   constructor() {}
 
   public setNavColor() {
@@ -26,5 +29,11 @@ export class SharedService {
     } else {
       this.showNavar.next(true);
     }
+  }
+
+  public setProfileImage(imageUrl: string) {
+    imageUrl = this.baseUrl + '/' + imageUrl;
+    console.log('the value of imageUrl', imageUrl);
+    this.profileImageUrl.next(imageUrl);
   }
 }
