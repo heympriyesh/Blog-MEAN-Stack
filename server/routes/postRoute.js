@@ -25,10 +25,11 @@ const multerStorage = multer.diskStorage({
 const upload = multer({
   storage: multerStorage,
 });
-router.post("/", protect, upload.single("image"), post);
+// upload.single("image"),
+router.post("/", protect, post);
 router.get("/", getAllBlogData);
 router.get("/:id", singleBlog);
 router.delete("/:id", protect, deleteBlogData);
-router.put("/:id", protect, upload.single("image"), updateBlog);
+router.put("/:id", protect, updateBlog);
 
 module.exports = router;

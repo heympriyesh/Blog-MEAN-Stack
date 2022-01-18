@@ -12,7 +12,7 @@
                   [theme]="{ width: '20px', height: '20px' }"
                 ></ngx-skeleton-loader>
                 <img
-                  src="/assets/images/secure_login.svg"
+                  [src]="'baseUrl/image' || '/assets/images/secure_login.svg'"
                   alt=""
                   *ngIf="contentLoaded"
                 />
@@ -62,7 +62,6 @@
   <div *ngIf="contentLoaded">
     <div *ngFor="let data of myBlog.drafts">
       <div class="content" matRipple>
-        <!-- <a id="link" [routerLink]="['/read', data._id]" target="_blank"> -->
         <div class="left-div">
           <div class="writer-info-container">
             <div class="info">
@@ -73,9 +72,14 @@
                   [theme]="{ width: '20px', height: '20px' }"
                 ></ngx-skeleton-loader>
                 <img
-                  src="/assets/images/secure_login.svg"
+                  src="/assets/images/avatar.svg"
                   alt=""
-                  *ngIf="contentLoaded"
+                  *ngIf="!myBlog.image"
+                />
+                <img
+                  src="{{ baseUrl }}/{{ myBlog.image }}"
+                  alt=""
+                  *ngIf="contentLoaded && myBlog.image"
                 />
               </div>
               <ngx-skeleton-loader
@@ -127,7 +131,6 @@
           <mat-icon (click)="deleteDraft(data._id)">delete</mat-icon>
         </div>
       </div>
-      <!-- </a> -->
     </div>
   </div>
 </div>

@@ -41,7 +41,7 @@ export class PasswordResetComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('closed password dialog', result);
       if (result) {
-        this.router.navigate(['/read']);
+        this.router.navigate(['/auth/login']);
       } else {
         this.router.navigate(['/creators']);
       }

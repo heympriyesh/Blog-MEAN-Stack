@@ -30,6 +30,36 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+const multerStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    const ext = file.originalname.split(".")[1];
+    cb(null, `admin-${file.fieldname}-${Date.now()}.${ext}`);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+app.use(
+  multer({
+    storage: multerStorage,
+    fileFilter: fileFilter,
+    limits: { fileSize: 5000000 },
+  }).single("image")
+);
+
 app.use("/auth", authRoute);
 app.use("/blog", postRoute);
 app.use("/draft", draftRoute);

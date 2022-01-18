@@ -37,7 +37,7 @@ module.exports.getAllBlogData = async (req, res, next) => {
   try {
     let find = await Post.find({}).sort({ _id: -1 }).populate({
       path: "user",
-      select: "name",
+      select: "name image",
     });
 
     res.status(200).json({
@@ -159,7 +159,6 @@ module.exports.updateBlog = async (req, res, next) => {
 };
 
 const clearImage = (filePath) => {
-  console.log("filePath", filePath);
   filePath = path.join(__dirname, "../uploads", filePath);
   fs.unlink(filePath, (err) => console.log(err));
 };

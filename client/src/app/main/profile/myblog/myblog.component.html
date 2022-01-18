@@ -75,7 +75,12 @@
                 <img
                   src="/assets/images/secure_login.svg"
                   alt=""
-                  *ngIf="contentLoaded"
+                  *ngIf="!myBlog.image"
+                />
+                <img
+                  src="{{ baseUrl }}/{{ myBlog.image }}"
+                  alt=""
+                  *ngIf="contentLoaded && myBlog.image"
                 />
               </div>
               <ngx-skeleton-loader
@@ -87,23 +92,27 @@
               </h4>
             </div>
           </div>
-          <div class="blog-title">
-            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-            <h1 *ngIf="contentLoaded">
-              {{ data.title }}
-            </h1>
-          </div>
-          <div class="blog-content">
-            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-            <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
-            <div
-              *ngIf="contentLoaded"
-              [innerHTML]="sanitizer.bypassSecurityTrustHtml(data?.description)"
-            ></div>
-          </div>
-          <div class="date-time">
-            <span>{{ data?.createdAt | date }}</span>
-          </div>
+          <a id="link" [routerLink]="['/read', data._id]" target="_blank">
+            <div class="blog-title">
+              <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
+              <h1 *ngIf="contentLoaded">
+                {{ data.title }}
+              </h1>
+            </div>
+            <div class="blog-content">
+              <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
+              <ngx-skeleton-loader *ngIf="!contentLoaded"></ngx-skeleton-loader>
+              <div
+                *ngIf="contentLoaded"
+                [innerHTML]="
+                  sanitizer.bypassSecurityTrustHtml(data?.description)
+                "
+              ></div>
+            </div>
+            <div class="date-time">
+              <span>{{ data?.createdAt | date }}</span>
+            </div>
+          </a>
         </div>
         <div class="right-div">
           <ngx-skeleton-loader
@@ -122,12 +131,12 @@
             *ngIf="contentLoaded"
           />
         </div>
+
         <div class="more">
           <mat-icon class="mr-2" (click)="editBlog(data._id)">edit</mat-icon>
           <mat-icon (click)="deleteBlog(data._id)">delete</mat-icon>
         </div>
       </div>
-      <!-- </a> -->
     </div>
   </div>
 </div>

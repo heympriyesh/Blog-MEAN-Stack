@@ -71,10 +71,20 @@
                   [theme]="{ width: '20px', height: '20px' }"
                 ></ngx-skeleton-loader>
                 <img
+                  src="/assets/images/avatar.svg"
+                  alt=""
+                  *ngIf="!data.user.image"
+                />
+                <img
+                  src="{{ baseUrl }}/{{ data.user.image }}"
+                  alt=""
+                  *ngIf="contentLoaded && data.user.image"
+                />
+                <!-- <img
                   src="/assets/images/secure_login.svg"
                   alt=""
                   *ngIf="contentLoaded"
-                />
+                /> -->
               </div>
               <ngx-skeleton-loader
                 *ngIf="!contentLoaded"

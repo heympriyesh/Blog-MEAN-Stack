@@ -19,6 +19,7 @@ export class ReadblogComponent implements OnInit {
   contentLoaded = false;
   title = 'ngx-skeleton-loader-demo';
   blogDetails: any;
+  baseUrl = environment.baseUrl;
   ngOnInit(): void {
     this.dataService
       .getBlogData()

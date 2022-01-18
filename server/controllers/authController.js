@@ -5,6 +5,8 @@ const Post = require("../models/Post");
 const bcrypt = require("bcryptjs");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
+const path = require("path");
+const fs = require("fs");
 
 exports.login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
@@ -55,10 +57,6 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
     .createHash("sha256")
     .update(req.params.resettoken)
     .digest("hex");
-  console.log(
-    "🚀 ~ file: authController.js ~ line 58 ~ exports.resetPassword=asyncHandler ~ resetPasswordToken",
-    resetPasswordToken
-  );
 
   const user = await User.findOne({
     resetPasswordToken,
@@ -68,10 +66,10 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   if (!user) {
     return next(new ErrorResponse("Invalid token", 400));
   }
-  console.log(req.body);
+  // console.log(req.body);
 
   // Set new password
-  console.log("user", user);
+  // console.log("user", user);
   user.password = newPassword;
   user.resetPasswordToken = undefined;
   user.resetPasswordExpire = undefined;
@@ -128,6 +126,9 @@ exports.updateDetails = async (req, res, next) => {
     const user = await User.findById(id);
     user.name = name;
     user.email = email;
+    if (image != user.image) {
+      clearImage(user.image);
+    }
     if (image) {
       user.image = image;
     }
@@ -138,7 +139,10 @@ exports.updateDetails = async (req, res, next) => {
       data: user,
     });
   } catch (err) {
-    res.status(400).json({ err });
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
   }
 };
 
@@ -233,35 +237,6 @@ exports.forgotPasword = async (req, res, next) => {
   }
 };
 
-// exports.resetPassword = asyncHandler(async (req, res, next) => {
-//   // Get hashed token
-
-//   const resetPasswordToken = crypto
-//     .createHash("sha256")
-//     .update(req.params.resettoken)
-//     .digest("hex");
-//   console.log(
-//     "🚀 ~ file: authController.js ~ line 317 ~ exports.resetPassword=asyncHandler ~ resetPasswordToken",
-//     resetPasswordToken
-//   );
-
-//   const user = await User.findOne({
-//     resetPasswordToken,
-//     resetPasswordExpire: { $gt: Date.now() },
-//   });
-
-//   if (!user) {
-//     return next(new ErrorResponse("Invalid token", 400));
-//   }
-//   // Set new password
-//   user.password = req.body.password;
-//   user.resetPasswordToken = undefined;
-//   user.resetPasswordExpire = undefined;
-//   await user.save();
-
-//   sendTokenResponse(user, 200, res);
-// });
-
 const sendTokenResponse = (user, statusCode, res) => {
   const token = user.getSignedJwtToken();
 
@@ -286,4 +261,9 @@ const sendTokenResponse = (user, statusCode, res) => {
     roleId,
     imageUrl,
   });
+};
+
+const clearImage = (filePath) => {
+  filePath = path.join(__dirname, "../uploads", filePath);
+  fs.unlink(filePath, (err) => console.log(err));
 };

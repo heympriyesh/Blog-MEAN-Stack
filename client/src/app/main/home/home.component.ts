@@ -38,9 +38,6 @@ export class HomeComponent implements OnInit {
   color: string = '';
 
   ngOnInit(): void {
-    this.dataService.getMe().subscribe((res: any) => {
-      this.sharedService.setProfileImage(res.data.image);
-    });
     this.sharedService.setRouterOutlet(this.route.url);
     this.sharedService.showNavar.subscribe((val) => {
       this.routerOutlet = val;
@@ -54,7 +51,13 @@ export class HomeComponent implements OnInit {
     this.dataService.checkLogin();
 
     this.dataService.isLoggedIn.subscribe((val) => {
+      console.log('islogged behav', val);
       this.loggedIn = val;
+      if (this.loggedIn) {
+        this.dataService.getMe().subscribe((res: any) => {
+          this.sharedService.setProfileImage(res.data.image);
+        });
+      }
     });
     this.sharedService.profileImageUrl.subscribe((res) => {
       this.profileImage = res;

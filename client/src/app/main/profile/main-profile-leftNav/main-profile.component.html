@@ -1,12 +1,9 @@
 <app-home></app-home>
-<div class="mt-4">
+<!-- <div class="mt-4">
   <div id="profile-container">
     <div class="row">
       <div class="col-2">
         <div class="left-menu-div">
-          <!-- <mat-sidenav-container> -->
-
-          <!-- </mat-sidenav-container> -->
           <mat-drawer-container class="example-container" fullscreen>
             <mat-drawer class="example-sidenav w-100" mode="over" opened>
               <div class="menu-items">
@@ -43,4 +40,52 @@
       </div>
     </div>
   </div>
+</div> -->
+
+<nav class="navbar-primary">
+  <button mat-raised-button color="primary" class="btn-expand-collapse">
+    <mat-icon class="glyphicon glyphicon-menu-left">expand_more</mat-icon>
+  </button>
+
+  <!-- <ul class="navbar-primary-menu">
+    <li>
+      <a [routerLink]="['/profile/me']" routerLinkActive=""
+        ><span class="glyphicon glyphicon-list-alt"></span
+        ><span class="nav-label">Me</span></a
+      >
+      <a [routerLink]="['/profile/myblog']" routerLinkActive=""
+        ><span class="glyphicon glyphicon-envelope"></span
+        ><span class="nav-label">MyBlog</span></a
+      >
+      <a [routerLink]="['/profile/draft']" routerLinkActive=""
+        ><span class="glyphicon glyphicon-cog"></span
+        ><span class="nav-label">MyDrafts</span></a
+      >
+      <a [routerLink]="['/routePath']" routerLinkActive="router-link-active"
+        ><span class="glyphicon glyphicon-film"></span
+        ><span class="nav-label">Notification</span></a
+      >
+      <a [routerLink]="['/routePath']" routerLinkActive="router-link-active"
+        ><span class="glyphicon glyphicon-calendar"></span
+        ><span class="nav-label">Monitor</span></a
+      >
+    </li>
+  </ul> -->
+  <ul class="navbar-primary-menu">
+    <li>
+      <a routerLink="/profile/me" routerLinkActive="active"
+        ><mat-icon>account_circle</mat-icon
+        ><span class="nav-label">MyProfile</span></a
+      >
+      <a routerLink="/profile/myblog" routerLinkActive="active"
+        ><mat-icon>email</mat-icon><span class="nav-label">My Blog</span></a
+      >
+      <a routerLink="/profile/draft" routerLinkActive="active"
+        ><mat-icon>drafts</mat-icon><span class="nav-label">My Draft</span></a
+      >
+    </li>
+  </ul>
+</nav>
+<div class="main-content">
+  <router-outlet></router-outlet>
 </div>

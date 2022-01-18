@@ -1,7 +1,7 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 // import { MatDialog } from '@angular/material/dialog';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
@@ -33,7 +33,8 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
     private _fb: FormBuilder,
     public dialog: MatDialog,
     private renderer: Renderer2,
-    private dataService: DataService
+    private dataService: DataService,
+    private router: Router
   ) {
     config.backdrop = 'static';
     config.keyboard = false;
@@ -53,16 +54,17 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
     formData.append('image', this.file);
     formData.append('description', this.description);
     if (this.editorForm.valid) {
-      this.dataService.saveBlogData(formData).subscribe((res) => {
+      this.dataService.saveBlogData(formData).subscribe((res: any) => {
         console.log('res value saved', res);
         this.resetBlog();
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Your work has been saved',
+          title: 'Your Blog Published SuccessFully',
           showConfirmButton: false,
           timer: 1500,
         });
+        this.router.navigate(['/read', res.post._id]);
       });
     }
     console.log(this.editorForm.value);

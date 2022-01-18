@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { DataService } from 'src/app/shared/data.service';
 
 @Component({
@@ -7,11 +7,26 @@ import { DataService } from 'src/app/shared/data.service';
   styleUrls: ['./main-profile.component.css'],
 })
 export class MainProfileComponent implements OnInit {
-  constructor(private dataService: DataService) {}
+  constructor(
+    private dataService: DataService,
+    private render: Renderer2,
+    private elementRef: ElementRef
+  ) {}
 
   ngOnInit(): void {
     this.dataService.getMe().subscribe((res: any) => {
       console.log('checking the value', res);
+    });
+  }
+
+  ngAfterViewInit() {
+    const buttonCollapse = this.elementRef.nativeElement.querySelector(
+      '.btn-expand-collapse'
+    );
+    const navPrimary =
+      this.elementRef.nativeElement.querySelector('.navbar-primary');
+    buttonCollapse.addEventListener('click', () => {
+      navPrimary.classList.toggle('collapsed');
     });
   }
 }
