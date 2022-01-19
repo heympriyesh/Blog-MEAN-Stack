@@ -42,7 +42,7 @@ export class DataService {
         let temp = localStorage.getItem('token');
         if (temp) {
           localStorage.clear();
-          this.router.navigate(['/auth/login']);
+          this.router.navigate(['/creators']);
         }
         break;
       case 500:
@@ -203,7 +203,7 @@ export class DataService {
     );
   }
 
-  publishDraft(id: string, data: any) {
+  publishDraft(id: any, data?: any) {
     return this.http.post(
       `${this.baseUrl}/draft/publish-draft/${id}`,
       data,

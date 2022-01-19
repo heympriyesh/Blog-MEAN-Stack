@@ -83,8 +83,16 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
     formData.append('image', this.file);
     formData.append('description', this.description);
     if (this.editorForm.valid) {
-      this.dataService.saveAsDraft(formData).subscribe((res) => {
-        console.log('res value saved', res);
+      this.dataService.saveAsDraft(formData).subscribe((res: any) => {
+        this.resetBlog();
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Saved in Draft  SuccessFully',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.router.navigate(['/profile/draft']);
       });
     }
   }

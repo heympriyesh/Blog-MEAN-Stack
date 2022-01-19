@@ -206,32 +206,36 @@ exports.forgotPasword = async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
-      err.statusCode = 404;
-      err.message = "There is no user with that email";
-      next(err);
+      res.status(404).json({
+        message: "There is no user with that email",
+      });
     }
     // Get reset token
-    const resetToken = user.getResetPasswordToken();
-    await user.save({ validateBeforeSave: false });
+    if (user) {
+      const resetToken = user.getResetPasswordToken();
+      await user.save({ validateBeforeSave: false });
 
-    // Create reset url
-    const resetUrl = `${process.env.RESET_PASSWORD_URL}/${resetToken}`;
-    const message = `You are receiving this email because you (or someone else) has requested the rest of a password. Please make a PUT request to:\n\n <a href=${resetUrl}>Click here</a>`;
+      // Create reset url
+      const resetUrl = `${process.env.RESET_PASSWORD_URL}/${resetToken}`;
+      const message = `You are receiving this email because you (or someone else) has requested the rest of a password. Please make a PUT request to:\n\n <a href=${resetUrl}>Click here</a>`;
 
-    await sendEmail({
-      email: user.email,
-      subject: "Password reset token",
-      message,
-      resetUrl,
-    });
+      await sendEmail({
+        email: user.email,
+        subject: "Password reset token",
+        message,
+        resetUrl,
+      });
 
-    res.status(200).json({ success: true, data: "Email Sent" });
+      res.status(200).json({ success: true, data: "Email Sent" });
+    }
   } catch (err) {
     console.log(err);
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpire = undefined;
+    if (user) {
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpire = undefined;
 
-    await user.save({ validateBeforeSave: false });
+      await user.save({ validateBeforeSave: false });
+    }
 
     return next(new ErrorResponse("Email could not be sent", 500));
   }

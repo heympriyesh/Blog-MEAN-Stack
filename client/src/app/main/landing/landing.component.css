@@ -12,6 +12,7 @@ img {
 }
 .landing-page-color {
   height: 83vh;
+  display: flex;
 }
 .landing-image {
   padding-top: 30px;

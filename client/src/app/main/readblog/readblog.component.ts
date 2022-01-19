@@ -20,18 +20,28 @@ export class ReadblogComponent implements OnInit {
   title = 'ngx-skeleton-loader-demo';
   blogDetails: any;
   baseUrl = environment.baseUrl;
+  noDataFound = false;
   ngOnInit(): void {
     this.dataService
       .getBlogData()
       .pipe(delay(100))
-      .subscribe((res: any) => {
-        this.blogDetails = res.data.data;
-        this.blogDetails.map((val: any) => {
-          val.image = environment.baseUrl + '/' + val.image;
-        });
-        console.log('the Blog Data response', this.blogDetails);
-        this.contentLoaded = true;
-      });
+      .subscribe(
+        (res: any) => {
+          this.blogDetails = res.data.data;
+          if (this.blogDetails.length === 0) {
+            this.noDataFound = true;
+          }
+          this.blogDetails.map((val: any) => {
+            val.image = environment.baseUrl + '/' + val.image;
+          });
+          console.log('the Blog Data response', this.blogDetails);
+          this.contentLoaded = true;
+        },
+        (err) => {
+          this.contentLoaded = true;
+          this.noDataFound = true;
+        }
+      );
   }
 
   counter(i: number) {

@@ -70,25 +70,31 @@ export class EditdraftComponent implements OnInit {
       };
       if (this.editorForm.valid) {
         this.dataService.updateDraft(data, this.id).subscribe((res: any) => {
-          Swal.fire(`${res.message}!`, 'You clicked the button!', 'success');
+          Swal.fire(`${res.message}!`, 'Draft Saved SuccessFully', 'success');
           console.log('res value saved', res);
+          this.resetDraft();
         });
       }
     } else {
-      console.log('else');
-
       const formData = new FormData();
       formData.append('title', this.title);
       formData.append('content', this.content);
       formData.append('image', this.file);
       formData.append('description', this.description);
       if (this.editorForm.valid) {
-        this.dataService.updateBlog(formData, this.id).subscribe((res: any) => {
-          Swal.fire(`${res.message}!`, 'You clicked the button!', 'success');
-          console.log('res value saved', res);
-        });
+        this.dataService
+          .updateDraft(formData, this.id)
+          .subscribe((res: any) => {
+            Swal.fire(`${res.message}!`, 'Draft Saved SuccessFully', 'success');
+            console.log('res value saved', res);
+            this.resetDraft();
+          });
       }
     }
+  }
+
+  publish() {
+    this.dataService.publishDraft(this.id).subscribe((res) => {});
   }
 
   get title() {

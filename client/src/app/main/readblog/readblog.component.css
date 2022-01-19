@@ -83,3 +83,15 @@ img {
   text-overflow: ellipsis;
   font-weight: 700;
 }
+.no-data-found {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 50%;
+}
+
+@media only screen and (max-width: 872px) {
+  .content {
+    width: 95%;
+  }
+}

@@ -35,7 +35,10 @@
 .login-form {
   width: 450px;
   max-width: 450px;
-  padding: 50px;
+  /* padding:
+   50px;
+   */
+  padding: 0 50px 0 50px;
   margin: 20px auto;
 }
 
@@ -70,11 +73,14 @@ img {
 
 .rember-forgot {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .register {
   display: flex;
   /* justify-content: space-between; */
   margin-top: 20px;
+}
+
+@media only screen and (max-width: 872px) {
 }

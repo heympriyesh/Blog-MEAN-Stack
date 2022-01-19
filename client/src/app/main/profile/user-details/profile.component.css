@@ -95,3 +95,10 @@ form {
   border: 0.6px solid #1b1b1b3d;
   border-radius: 2px;
 }
+.page-layout-sample {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  width: 100%;
+  min-width: 100%;
+}

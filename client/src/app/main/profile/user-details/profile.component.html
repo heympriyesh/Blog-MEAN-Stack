@@ -1,77 +1,79 @@
-<div class="profile-container">
-  <div class="profile-image-section">
-    <div class="profile-img">
-      <!-- <img
-        src="/assets/images/placeholder-image.jpg"
-        *ngIf="!imageSrc"
-        alt="Placeholder image"
-      /> -->
-      <img [src]="imageSrc || '/assets/images/placeholder-image.jpg'" alt="" />
-      <img
-        src="/assets/images/photo_camera.svg"
-        alt="upload image"
-        id="image-upload"
-        (click)="file.click()"
-      />
-      <input
-        type="file"
-        accept="image/*"
-        #file
-        [ngStyle]="{ display: 'none' }"
-        (change)="uploadFile($event)"
-      />
-      <button mat-raised-button (click)="file.click()" class="mybtn">
-        Change Picture
-      </button>
-      <button
-        mat-raised-button
-        class="mybtn"
-        (click)="openPassworChangeDialog()"
-      >
-        Change Password
-      </button>
-    </div>
-  </div>
-  <div class="profile-form-section">
-    <form [formGroup]="profileForm">
-      <div class="inner-form">
-        <mat-form-field appearance="outline" class="input">
-          <mat-label>Full Name</mat-label>
-
-          <input type="text" matInput formControlName="fullname" />
-          <mat-error *ngIf="profileForm.controls.fullname?.errors?.required"
-            >Name is required</mat-error
-          >
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="input">
-          <mat-label>Email address*</mat-label>
-
-          <input
-            type="email"
-            matInput
-            formControlName="email"
-            readonly="true"
-          />
-          <mat-icon matSuffix class="edit-icon">edit</mat-icon>
-          <mat-error *ngIf="profileForm.controls.email?.errors?.required"
-            >Email is required</mat-error
-          >
-          <mat-error *ngIf="profileForm.controls.email?.errors?.email"
-            >Please Enter Correct Email</mat-error
-          >
-        </mat-form-field>
-        <div class="form-btn">
-          <button mat-raised-button matRippe class="cancel">Cancel</button>
+<div class="page-layout-sample">
+  <div class="profile-container">
+    <div class="profile-image-section">
+      <div class="profile-img">
+        <img
+          [src]="imageSrc || '/assets/images/placeholder-image.jpg'"
+          alt=""
+        />
+        <img
+          src="/assets/images/photo_camera.svg"
+          alt="upload image"
+          id="image-upload"
+          (click)="file.click()"
+        />
+        <input
+          type="file"
+          accept="image/*"
+          #file
+          [ngStyle]="{ display: 'none' }"
+          (change)="uploadFile($event)"
+        />
+        <div>
+          <button mat-raised-button (click)="file.click()" class="mybtn">
+            Change Picture
+          </button>
           <button
             mat-raised-button
-            matRippe
-            class="save"
-            (click)="saveDetails()"
+            class="mybtn"
+            (click)="openPassworChangeDialog()"
           >
-            Save
+            Change Password
           </button>
         </div>
       </div>
-    </form>
+    </div>
+    <div class="profile-form-section">
+      <form [formGroup]="profileForm">
+        <div class="inner-form">
+          <mat-form-field appearance="outline" class="input">
+            <mat-label>Full Name</mat-label>
+
+            <input type="text" matInput formControlName="fullname" />
+            <mat-error *ngIf="profileForm.controls.fullname?.errors?.required"
+              >Name is required</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="input">
+            <mat-label>Email address*</mat-label>
+
+            <input
+              type="email"
+              matInput
+              formControlName="email"
+              readonly="true"
+            />
+            <mat-icon matSuffix class="edit-icon">edit</mat-icon>
+            <mat-error *ngIf="profileForm.controls.email?.errors?.required"
+              >Email is required</mat-error
+            >
+            <mat-error *ngIf="profileForm.controls.email?.errors?.email"
+              >Please Enter Correct Email</mat-error
+            >
+          </mat-form-field>
+          <div class="form-btn">
+            <button mat-raised-button matRippe class="cancel">Cancel</button>
+            <button
+              mat-raised-button
+              matRippe
+              class="save"
+              (click)="saveDetails()"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

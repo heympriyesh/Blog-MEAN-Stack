@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Router,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
@@ -10,6 +11,7 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
+  constructor(private router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -26,9 +28,10 @@ export class AuthGuard implements CanActivate {
     if (localStorage.getItem('token')) {
       return true;
     } else {
+      this.router.navigateByUrl('/');
       Swal.fire({
         icon: 'error',
-        title: 'Not Authorize',
+        title: 'Not Authorize To Access This Route',
         showConfirmButton: false,
         timer: 2000,
       });

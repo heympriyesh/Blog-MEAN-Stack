@@ -113,6 +113,14 @@ exports.updateDraft = async (req, res, next) => {
   const { title, description, content } = req.body;
   let image = req.body.image;
   try {
+    if (req.file) {
+      image = req.file.filename;
+    }
+    if (!image) {
+      const error = new Error("No File picked.");
+      error.statusCode = 422;
+      throw error;
+    }
     let post = await Draft.findById(id);
     if (!post) {
       const error = new Error("Could not find post.");
@@ -145,6 +153,7 @@ exports.updateDraft = async (req, res, next) => {
 };
 
 exports.publishDraft = async (req, res, next) => {
+  const { id } = req.params;
   try {
     const draft = await Draft.findById(id);
     const { content, title, description, image } = draft;
@@ -179,7 +188,6 @@ exports.publishDraft = async (req, res, next) => {
 };
 
 const clearImage = (filePath) => {
-  console.log("filePath", filePath);
   filePath = path.join(__dirname, "../uploads", filePath);
   fs.unlink(filePath, (err) => console.log(err));
 };

@@ -119,7 +119,6 @@ module.exports.updateBlog = async (req, res, next) => {
   let image = req.body.image;
   try {
     if (req.file) {
-      console.log("req.file", req.file);
       image = req.file.filename;
     }
     if (!image) {

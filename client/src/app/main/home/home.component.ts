@@ -54,9 +54,14 @@ export class HomeComponent implements OnInit {
       console.log('islogged behav', val);
       this.loggedIn = val;
       if (this.loggedIn) {
-        this.dataService.getMe().subscribe((res: any) => {
-          this.sharedService.setProfileImage(res.data.image);
-        });
+        this.dataService.getMe().subscribe(
+          (res: any) => {
+            this.sharedService.setProfileImage(res.data.image);
+          },
+          ({ error }) => {
+            console.log('error', error);
+          }
+        );
       }
     });
     this.sharedService.profileImageUrl.subscribe((res) => {

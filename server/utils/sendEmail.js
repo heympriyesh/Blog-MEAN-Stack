@@ -49,8 +49,8 @@ const emailTemplate = (url) => {
                       </tr>
                       <tr>
                           <td style="text-align:center;">
-                            <a href="https://google.com" title="logo" target="_blank">
-                              <img width="60" src="https://i.ibb.co/hL4XZp2/android-chrome-192x192.png" title="logo" alt="logo">
+                            <a href=${process.env.PROJECT_URL} title="logo" target="_blank">
+                            <span style="text-decoration:none;color:black;letter-spacing:11px;text-transform:uppercase;font-size:30px;font-weight:bolder;">Blog</span>
                             </a>
                           </td>
                       </tr>

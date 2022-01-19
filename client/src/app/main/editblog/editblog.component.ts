@@ -1,7 +1,7 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from 'src/app/shared/data.service';
 import { environment } from 'src/environments/environment';
@@ -33,7 +33,8 @@ export class EditblogComponent implements OnInit {
     public dialog: MatDialog,
     private renderer: Renderer2,
     private dataService: DataService,
-    private activatedRouter: ActivatedRoute
+    private activatedRouter: ActivatedRoute,
+    private router: Router
   ) {
     this.editorForm = this._fb.group({
       title: ['', [Validators.required]],
@@ -69,7 +70,14 @@ export class EditblogComponent implements OnInit {
       };
       if (this.editorForm.valid) {
         this.dataService.updateBlog(data, this.id).subscribe((res: any) => {
-          Swal.fire(`${res.message}!`, 'You clicked the button!', 'success');
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your Blog Published SuccessFully',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.router.navigate(['/read', res.post._id]);
           console.log('res value saved', res);
         });
       }
@@ -81,8 +89,14 @@ export class EditblogComponent implements OnInit {
       formData.append('description', this.description);
       if (this.editorForm.valid) {
         this.dataService.updateBlog(formData, this.id).subscribe((res: any) => {
-          Swal.fire(`${res.message}!`, 'You clicked the button!', 'success');
-          console.log('res value saved', res);
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your Blog Published SuccessFully',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.router.navigate(['/read', res.post._id]);
         });
       }
     }

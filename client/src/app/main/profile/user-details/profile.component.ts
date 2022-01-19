@@ -54,13 +54,6 @@ export class ProfileComponent implements OnInit {
       });
       const reader = new FileReader();
       reader.onload = (e) => (this.imageSrc = reader.result);
-      setTimeout(() => {
-        console.log(
-          '🚀 ~ file: profile.component.ts ~ line 57 ~ ProfileComponent ~ uploadFile ~ this.imageSrc ',
-          this.imageSrc
-        );
-      }, 1000);
-      this.sharedService.setProfileImage(this.imageSrc);
       reader.readAsDataURL(this.file);
 
       // this.renderer.setStyle(Elemen)
