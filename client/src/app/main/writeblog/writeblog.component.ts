@@ -40,7 +40,7 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
     config.keyboard = false;
     this.editorForm = this._fb.group({
       title: ['', [Validators.required]],
-      description: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.required]],
       content: ['', [Validators.required]],
     });
   }
@@ -78,24 +78,24 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
 
   saveAsDraft() {
     console.log('for', this.editorForm.controls);
-    // const formData = new FormData();
-    // formData.append('title', this.title);
-    // formData.append('content', this.content);
-    // formData.append('image', this.file);
-    // formData.append('description', this.description);
-    // if (this.editorForm.valid) {
-    //   this.dataService.saveAsDraft(formData).subscribe((res: any) => {
-    //     this.resetBlog();
-    //     Swal.fire({
-    //       position: 'center',
-    //       icon: 'success',
-    //       title: 'Saved in Draft  SuccessFully',
-    //       showConfirmButton: false,
-    //       timer: 1500,
-    //     });
-    //     this.router.navigate(['/profile/draft']);
-    //   });
-    // }
+    const formData = new FormData();
+    formData.append('title', this.title);
+    formData.append('content', this.content);
+    formData.append('image', this.file);
+    formData.append('description', this.description);
+    if (this.editorForm.valid) {
+      this.dataService.saveAsDraft(formData).subscribe((res: any) => {
+        this.resetBlog();
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Saved in Draft  SuccessFully',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.router.navigate(['/profile/draft']);
+      });
+    }
   }
 
   get title() {
