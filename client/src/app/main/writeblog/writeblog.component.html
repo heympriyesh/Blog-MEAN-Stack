@@ -1,12 +1,27 @@
 <div class="editor_class">
   <form [formGroup]="editorForm">
-    <input type="text" placeholder="Title" formControlName="title" />
+    <input
+      type="text"
+      placeholder="Title"
+      formControlName="title"
+      [ngClass]="{
+        'error-class':
+          editorForm.controls.title.touched &&
+          editorForm.controls.title?.errors?.required
+      }"
+    />
     <textarea
+      matInput
       formControlName="description"
       id="description"
       cols="30"
-      rows="5"
-      placeholder="Write Short description in 50 words.."
+      rows="3"
+      [ngClass]="{
+        'error-class':
+          editorForm.controls.description.touched &&
+          editorForm.controls.description?.errors?.required
+      }"
+      placeholder="Write Short description in less then 50 words.."
     ></textarea>
     <div class="thumbnailImage mt-2">
       <div class="preview-image">

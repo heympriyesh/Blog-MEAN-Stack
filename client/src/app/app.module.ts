@@ -14,9 +14,10 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { DeactivateServiceGuard } from './shared/deactivate.guard';
 import { AuthGuard } from './shared/auth.guard';
 import { InterceptorService } from './shared/interceptor.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

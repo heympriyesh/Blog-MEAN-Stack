@@ -75,8 +75,8 @@ export class ProfileComponent implements OnInit {
       formData.append('name', this.name);
       formData.append('image', this.file);
       formData.append('email', this.email);
-      this.dataServie.updateUserDetail(formData).subscribe((res) => {
-        console.log('res', res);
+      this.dataServie.updateUserDetail(formData).subscribe((res: any) => {
+        this.sharedService.setProfileImage(res.data.image);
       });
     } else {
       let image = this.imageSrc.split(`${this.baseUrl}/`);
@@ -86,7 +86,8 @@ export class ProfileComponent implements OnInit {
         image: image[1],
       };
       this.dataServie.updateUserDetail(data).subscribe(
-        (res) => {
+        (res: any) => {
+          this.sharedService.setProfileImage(res.data.image);
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
