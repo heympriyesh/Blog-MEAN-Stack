@@ -1,15 +1,5 @@
 # MEAN STACK BLOG APP
 
-# Feature
-
-1. Drag and Drop File to Upload in Firebase Store
-2. Select which type of file you want to upload by selecting checkbox
-3. Choose the size by using slider
-4. Use of Ant Design Component
-5. Preview the Files once uploading is finish
-6. You can Pause, Cancel and Resume the file
-7. Download % is visible in progress bar
-
 ## How to install
 
 1. Clone the project.
