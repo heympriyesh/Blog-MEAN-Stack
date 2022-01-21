@@ -74,7 +74,7 @@ FROM_NAME=Priyesh Pandey
 
 ![image](https://user-images.githubusercontent.com/65906348/150398457-126ef41f-0177-4a54-a094-495669292307.png)
 
-# Forgot Password Email
+# Reset Password Email
 
 ![image](https://user-images.githubusercontent.com/65906348/150398602-d2eb2a8b-6698-42e5-a379-b8be506ab0d6.png)
 
