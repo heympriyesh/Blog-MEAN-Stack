@@ -63,6 +63,23 @@ app.use(
 app.use("/auth", authRoute);
 app.use("/blog", postRoute);
 app.use("/draft", draftRoute);
+let root = path.join(__dirname, "../client/dist/");
+app.use(express.static(root));
+app.use(function (req, res, next) {
+  if (
+    req.method === "GET" &&
+    req.accepts("html") &&
+    !req.is("json") &&
+    !req.path.includes(".")
+  ) {
+    res.sendFile("index.html", { root });
+  } else next();
+});
+
+// app.get("*", (req, res) => {
+//   // console.log(path.join(__dirname, "./client/dist/index.html"));
+//   res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+// });
 
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
