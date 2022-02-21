@@ -4,7 +4,7 @@
   "description": "Run Frontend and Backend",
   "main": "server.js",
   "scripts": {
-    "heroku-prebuild": "cd server && npm install --production && cd ../client && npm install && npm run build",
+    "heroku-prebuild": "cd server && npm install production && cd ../client && npm install && npm run build",
     "start": "npm run heroku-prebuild && cd server && npm start",
     "pretest": "cd server && npm install",
     "test": "cd server && npm test"
