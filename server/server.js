@@ -87,10 +87,12 @@ app.use((error, req, res, next) => {
   const data = error.data;
   res.status(status).json({ message: message, data: data });
 });
-const PORT = process.env.PORT || 8800;
+
+// const PORT = process.env.PORT || 8800;
 
 const server = app.listen(process.env.PORT || 8800, () => {
-  console.log(
-    `Server is running ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
-  );
+  // console.log(
+  //   `Server is running ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
+  // );
+  console.log("Server is up and running");
 });
