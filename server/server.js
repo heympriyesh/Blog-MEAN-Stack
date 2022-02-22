@@ -94,5 +94,5 @@ const server = app.listen(process.env.PORT || 8800, () => {
   // console.log(
   //   `Server is running ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
   // );
-  console.log("Server is up and running", PORT);
+  console.log("Server is up and running");
 });
