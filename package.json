@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "heroku-prebuild": "cd server && npm install  && cd ../client && npm install && npm run build",
-    "start": "npm run heroku-prebuild && cd server && npm start",
+    "start": "cd server && npm start",
     "pretest": "cd server && npm install",
     "test": "cd server && npm test"
   },
