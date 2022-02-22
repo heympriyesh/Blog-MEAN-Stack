@@ -33,6 +33,6 @@ export class ResetpasswordComponent implements OnInit {
         });
       }
     );
-    console.log('resetEmail', data);
+    // console.log('resetEmail', data);
   }
 }

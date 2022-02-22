@@ -104,6 +104,6 @@ export class DraftComponent implements OnInit {
         );
       }
     });
-    console.log('', id);
+    // console.log('', id);
   }
 }

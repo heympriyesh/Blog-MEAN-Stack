@@ -52,13 +52,11 @@ module.exports.getAllBlogData = async (req, res, next) => {
     res.status(400).json({
       error: err,
     });
-    console.log("error");
   }
 };
 
 module.exports.singleBlog = async (req, res, next) => {
   const { id } = req.params;
-  console.log("id", id);
   try {
     const singleBlog = await Post.findById(id).populate({
       path: "user",

@@ -157,7 +157,6 @@ exports.publishDraft = async (req, res, next) => {
   try {
     const draft = await Draft.findById(id);
     const { content, title, description, image } = draft;
-    console.log(content, title, description, image);
     let creator;
     const post = await new Post({
       title: title,

@@ -34,7 +34,7 @@ export class ReadblogComponent implements OnInit {
           this.blogDetails.map((val: any) => {
             val.image = environment.baseUrl + '/' + val.image;
           });
-          console.log('the Blog Data response', this.blogDetails);
+          // console.log('the Blog Data response', this.blogDetails);
           this.contentLoaded = true;
         },
         (err) => {

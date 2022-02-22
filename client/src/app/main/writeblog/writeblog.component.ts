@@ -55,7 +55,7 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
     formData.append('description', this.description);
     if (this.editorForm.valid) {
       this.dataService.saveBlogData(formData).subscribe((res: any) => {
-        console.log('res value saved', res);
+        // console.log('res value saved', res);
         this.resetBlog();
         Swal.fire({
           position: 'center',
@@ -67,7 +67,7 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
         this.router.navigate(['/read', res.post._id]);
       });
     }
-    console.log(this.editorForm.value);
+    // console.log(this.editorForm.value);
   }
 
   resetBlog() {
@@ -77,7 +77,7 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
   }
 
   saveAsDraft() {
-    console.log('for', this.editorForm.controls);
+    // console.log('for', this.editorForm.controls);
     const formData = new FormData();
     formData.append('title', this.title);
     formData.append('content', this.content);
@@ -126,12 +126,12 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+      // console.log('The dialog was closed');
     });
   }
 
   handleInputFile(files: FileList) {
-    console.log('file..');
+    // console.log('file..');
   }
 
   uploadFile(event: Event) {
@@ -157,7 +157,7 @@ export class WriteblogComponent implements OnInit, IDeactivateGuard {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log('isConfirmed...!');
+        // console.log('isConfirmed...!');
         // Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
         fire = true;
         return fire;

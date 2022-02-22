@@ -46,10 +46,10 @@ export class EditdraftComponent implements OnInit {
     this.id = this.activatedRouter.snapshot.paramMap.get('id');
     this.activatedRouter.paramMap.subscribe((params: any) => {
       this.id = params.get('id');
-      console.log('id...', this.id);
+      // console.log('id...', this.id);
     });
     this.dataService.getDraftById(this.id).subscribe((res: any) => {
-      console.log('res data..', res);
+      // console.log('res data..', res);
       this.data = res.data;
       this.editorForm.controls['title'].patchValue(res.data.title);
       this.editorForm.controls['description'].patchValue(res.data.description);
@@ -60,7 +60,7 @@ export class EditdraftComponent implements OnInit {
   }
 
   saveEditor() {
-    console.log('this.file', this.file);
+    // console.log('this.file', this.file);
     if (!this.file) {
       let data = {
         title: this.title,
@@ -71,7 +71,7 @@ export class EditdraftComponent implements OnInit {
       if (this.editorForm.valid) {
         this.dataService.updateDraft(data, this.id).subscribe((res: any) => {
           Swal.fire(`${res.message}!`, 'Draft Saved SuccessFully', 'success');
-          console.log('res value saved', res);
+          // console.log('res value saved', res);
           this.resetDraft();
         });
       }
@@ -86,7 +86,7 @@ export class EditdraftComponent implements OnInit {
           .updateDraft(formData, this.id)
           .subscribe((res: any) => {
             Swal.fire(`${res.message}!`, 'Draft Saved SuccessFully', 'success');
-            console.log('res value saved', res);
+            // console.log('res value saved', res);
             this.resetDraft();
           });
       }
@@ -131,13 +131,13 @@ export class EditdraftComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+      // console.log('The dialog was closed');
       // this.animal = result;
     });
   }
 
   handleInputFile(files: FileList) {
-    console.log('file..');
+    // console.log('file..');
   }
 
   uploadFile(event: Event) {
@@ -150,7 +150,7 @@ export class EditdraftComponent implements OnInit {
       reader.readAsDataURL(this.file);
 
       // this.renderer.setStyle(Elemen)
-      console.log('FileUpload -> files', fileList);
+      // console.log('FileUpload -> files', fileList);
     }
   }
 
@@ -166,7 +166,7 @@ export class EditdraftComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log('isConfirmed...!');
+        // console.log('isConfirmed...!');
         // Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
         fire = true;
         return fire;

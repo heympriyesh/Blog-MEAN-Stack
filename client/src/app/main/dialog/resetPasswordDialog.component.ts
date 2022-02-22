@@ -31,7 +31,7 @@ export class ResetPasswordDialComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('the value of data', this.data);
+    // console.log('the value of data', this.data);
     // throw new Error('Method not implemented.');
   }
 
@@ -79,6 +79,6 @@ export class ResetPasswordDialComponent implements OnInit {
 
   closeModal() {
     this.dialogRef.close(false);
-    console.log('clicked');
+    // console.log('clicked');
   }
 }

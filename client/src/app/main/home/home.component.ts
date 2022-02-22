@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
     this.dataService.checkLogin();
 
     this.dataService.isLoggedIn.subscribe((val) => {
-      console.log('islogged behav', val);
+      // console.log('islogged behav', val);
       this.loggedIn = val;
       if (this.loggedIn) {
         this.dataService.getMe().subscribe(

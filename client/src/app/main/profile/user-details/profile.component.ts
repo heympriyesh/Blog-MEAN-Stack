@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
       reader.readAsDataURL(this.file);
 
       // this.renderer.setStyle(Elemen)
-      console.log('FileUpload -> files', fileList);
+      // console.log('FileUpload -> files', fileList);
     }
   }
 
@@ -124,7 +124,7 @@ export class ProfileComponent implements OnInit {
       backdropClass: 'bgClass',
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('closed password dialog', result);
+      // console.log('closed password dialog', result);
     });
   }
 }

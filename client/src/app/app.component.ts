@@ -27,6 +27,6 @@ export class AppComponent implements OnInit {
   }
 
   checkValue() {
-    console.log('this.editorValue', this.editorValue);
+    // console.log('this.editorValue', this.editorValue);
   }
 }

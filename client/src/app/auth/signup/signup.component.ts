@@ -30,7 +30,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {}
   signup() {
-    console.log('this.signUpForm', this.signUpForm.value);
+    // console.log('this.signUpForm', this.signUpForm.value);
     if (this.signUpForm.valid) {
       this.http
         .post(`${this.baseUrl}/auth/signup`, this.signUpForm.value)
@@ -48,7 +48,7 @@ export class SignupComponent implements OnInit {
               icon: 'success',
               title: 'Sigup successfully',
             });
-            console.log('res...', res);
+            // console.log('res...', res);
             localStorage.setItem('token', res.token);
           },
           ({ error }) => {
@@ -57,7 +57,7 @@ export class SignupComponent implements OnInit {
               title: 'Oops...',
               text: `${error.message} Please try again!!`,
             });
-            console.log('err.message', error.message);
+            // console.log('err.message', error.message);
           }
         );
     }

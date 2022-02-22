@@ -30,7 +30,7 @@ export class PasswordChangeDialogComponent implements OnInit {
   }
 
   savePassword(): void {
-    console.log('valid', this.changePassword.value);
+    // console.log('valid', this.changePassword.value);
 
     if (this.changePassword.valid) {
       this.dataService.updatePassword(this.changePassword.value).subscribe(
@@ -53,7 +53,7 @@ export class PasswordChangeDialogComponent implements OnInit {
           this.dialogRef.close(this.changePassword.value);
         },
         ({ error }) => {
-          console.log('the value of err', error);
+          // console.log('the value of err', error);
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
